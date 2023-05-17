@@ -10,6 +10,11 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
+      status: {
+        // This probably needs an UNASSIGNED status too .. probably take some time for a delivery driver to accept a trip 
+        type: Sequelize.ENUM(['ASSIGNED','AT_VENDOR','PICKED','DELIVERED']),
+        allowNull: false
+      },
       orderId: {
         type: Sequelize.INTEGER,
         allowNull: false,

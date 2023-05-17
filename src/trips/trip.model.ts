@@ -10,6 +10,13 @@ import {
 import { Order } from 'src/orders/order.model';
 import { User } from 'src/users/user.model';
 
+enum TripStatus { 
+ASSIGNED='ASSIGNED',
+AT_VENDOR='AT_VENDOR',
+PICKED='PICKED',
+DELIVERED='DELIVERED'
+}
+
 @Table({ tableName: 'trips' })
 export class Trip extends Model {
   @PrimaryKey
@@ -18,6 +25,12 @@ export class Trip extends Model {
     autoIncrement: true,
   })
   id: number;
+
+  @Column({
+    type: DataType.ENUM(...Object.values(TripStatus)),
+    allowNull: false,
+  })
+  status: TripStatus;
 
   @ForeignKey(() => Order)
   @Column

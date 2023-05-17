@@ -10,6 +10,10 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
+      delivery_time: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
       vendorId: {
         type: Sequelize.INTEGER,
         allowNull: false,
