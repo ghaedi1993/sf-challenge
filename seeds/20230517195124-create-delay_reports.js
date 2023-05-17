@@ -1,4 +1,6 @@
 'use strict';
+const moment = require('moment');
+const { Op } = require('sequelize');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
