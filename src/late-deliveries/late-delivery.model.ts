@@ -10,7 +10,6 @@ import {
 import { Order } from 'src/orders/order.model';
 import { User } from 'src/users/user.model';
 enum LATE_DELIVERY_STATUS {
-  WAITING = 'WAITING',
   PICKED = 'PICKED',
   DONE = 'DONE',
 }
@@ -25,7 +24,7 @@ export class LateDelivery extends Model {
 
   @Column({
     type: DataType.ENUM(...Object.values(LATE_DELIVERY_STATUS)),
-    allowNull: false,
+    allowNull: true,
   })
   status: LATE_DELIVERY_STATUS;
 

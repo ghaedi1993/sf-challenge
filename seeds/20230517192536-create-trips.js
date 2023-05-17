@@ -35,7 +35,14 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         status:'PICKED'
+      },
+      // This belong to an order that vendor asked for a trip but yet noone accept it (and its late)
+      {
+        orderId: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       }
+
     ];
     await queryInterface.bulkInsert('trips', tripsData, {});
   },

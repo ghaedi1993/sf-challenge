@@ -21,7 +21,6 @@ module.exports = {
       },
       {
         orderId: 7,
-        status:'WAITING',
         createdAt: new Date(),
         updatedAt: new Date(),
       },

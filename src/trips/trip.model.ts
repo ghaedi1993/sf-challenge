@@ -28,7 +28,7 @@ export class Trip extends Model {
 
   @Column({
     type: DataType.ENUM(...Object.values(TripStatus)),
-    allowNull: false,
+    allowNull: true,
   })
   status: TripStatus;
 

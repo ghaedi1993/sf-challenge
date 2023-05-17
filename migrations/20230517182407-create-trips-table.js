@@ -11,9 +11,9 @@ module.exports = {
         primaryKey: true,
       },
       status: {
-        // This probably needs an UNASSIGNED status too .. probably take some time for a delivery driver to accept a trip 
+        // so when the status is none of them below .. the trip still has not find it's delivery_driver
         type: Sequelize.ENUM(['ASSIGNED','AT_VENDOR','PICKED','DELIVERED']),
-        allowNull: false
+        allowNull: true
       },
       orderId: {
         type: Sequelize.INTEGER,
@@ -25,7 +25,7 @@ module.exports = {
       },
       deliveryDriverId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: 'users',
           key: 'id',
