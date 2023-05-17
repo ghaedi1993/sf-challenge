@@ -1,10 +1,14 @@
 import {
+  BelongsTo,
   Column,
   DataType,
+  ForeignKey,
   Model,
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
+import { Order } from 'src/orders/order.model';
+import { User } from 'src/users/user.model';
 
 @Table
 export class LateDelivery extends Model {
@@ -17,4 +21,18 @@ export class LateDelivery extends Model {
 
   @Column
   name: string;
+
+  @ForeignKey(() => Order)
+  @Column
+  orderId: number;
+
+  @BelongsTo(() => Order)
+  order: Order;
+
+  @ForeignKey(() => User)
+  @Column
+  agentId: number;
+
+  @BelongsTo(() => User)
+  agent: User;
 }

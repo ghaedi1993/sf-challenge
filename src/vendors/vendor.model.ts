@@ -4,7 +4,9 @@ import {
   Model,
   PrimaryKey,
   Table,
+  HasMany
 } from 'sequelize-typescript';
+import { Order } from 'src/orders/order.model';
 
 @Table
 export class Vendor extends Model {
@@ -17,4 +19,7 @@ export class Vendor extends Model {
 
   @Column
   name: string;
+
+  @HasMany(() => Order)
+  orders: Order[];
 }

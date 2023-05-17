@@ -1,10 +1,13 @@
 import {
+  BelongsTo,
   Column,
   DataType,
+  ForeignKey,
   Model,
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
+import { Order } from 'src/orders/order.model';
 
 @Table
 export class DelayReport extends Model {
@@ -14,4 +17,11 @@ export class DelayReport extends Model {
     autoIncrement: true,
   })
   id: number;
+
+  @ForeignKey(() => Order)
+  @Column
+  orderId: number;
+
+  @BelongsTo(() => Order)
+  order: Order;
 }
