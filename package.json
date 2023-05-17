@@ -28,7 +28,6 @@
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/sequelize": "^9.0.2",
     "@nestjs/swagger": "^6.3.0",
-    "@nestjs/throttler": "^4.0.0",
     "@types/bcrypt": "^5.0.0",
     "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",
