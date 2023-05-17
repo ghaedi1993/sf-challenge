@@ -15,7 +15,7 @@ import { Trip } from 'src/trips/trip.model';
 import { User } from 'src/users/user.model';
 import { Vendor } from 'src/vendors/vendor.model';
 
-@Table
+@Table({ tableName: 'orders' })
 export class Order extends Model {
   @PrimaryKey
   @Column({

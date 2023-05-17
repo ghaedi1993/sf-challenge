@@ -10,7 +10,7 @@ import {
 import { Order } from 'src/orders/order.model';
 import { User } from 'src/users/user.model';
 
-@Table
+@Table({ tableName: 'trips' })
 export class Trip extends Model {
   @PrimaryKey
   @Column({

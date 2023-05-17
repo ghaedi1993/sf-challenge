@@ -9,7 +9,7 @@ import {
 } from 'sequelize-typescript';
 import { Order } from 'src/orders/order.model';
 
-@Table
+@Table({ tableName: 'delay_reports' })
 export class DelayReport extends Model {
   @PrimaryKey
   @Column({

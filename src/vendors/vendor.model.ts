@@ -8,7 +8,7 @@ import {
 } from 'sequelize-typescript';
 import { Order } from 'src/orders/order.model';
 
-@Table
+@Table({ tableName: 'vendors' })
 export class Vendor extends Model {
   @PrimaryKey
   @Column({

@@ -15,7 +15,7 @@ enum LATE_DELIVERY_STATUS {
   IN_PROCESS = 'IN_PROCESS',
   DONE = 'DONE',
 }
-@Table
+@Table({ tableName: 'late_deliveries' })
 export class LateDelivery extends Model {
   @PrimaryKey
   @Column({

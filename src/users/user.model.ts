@@ -17,7 +17,7 @@ export enum UserRole {
   AGENT = 'AGENT',
 }
 
-@Table
+@Table({ tableName: 'users' })
 export class User extends Model {
   @PrimaryKey
   @Column({
