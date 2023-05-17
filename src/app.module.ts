@@ -14,7 +14,8 @@ import { LateDeliveriesModule } from './late-deliveries/late-deliveries.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: process.env.NODE_ENV === 'test' ? '.test.env' : '.development.env',
+      envFilePath:
+        process.env.NODE_ENV === 'test' ? '.test.env' : '.development.env',
       isGlobal: true,
     }),
     SequelizeModule.forRoot({
@@ -25,7 +26,7 @@ import { LateDeliveriesModule } from './late-deliveries/late-deliveries.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       autoLoadModels: true,
-      synchronize: Boolean(process.env.SYNCHRONIZE),    
+      synchronize: Boolean(process.env.SYNCHRONIZE),
     }),
     AuthModule,
     UsersModule,
