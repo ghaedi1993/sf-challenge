@@ -7,7 +7,7 @@ import {
   Table,
   BelongsTo,
   HasMany,
-  HasOne
+  HasOne,
 } from 'sequelize-typescript';
 import { DelayReport } from 'src/delay-reports/delay-report.model';
 import { LateDelivery } from 'src/late-deliveries/late-delivery.model';
@@ -41,9 +41,9 @@ export class Order extends Model {
   @HasMany(() => DelayReport)
   delayReports: DelayReport[];
 
-  @HasOne(()=>Trip)
-  trip: Trip
+  @HasOne(() => Trip)
+  trip: Trip;
 
-  @HasOne(()=> LateDelivery)
-  lateDelivery: LateDelivery
+  @HasOne(() => LateDelivery)
+  lateDelivery: LateDelivery;
 }

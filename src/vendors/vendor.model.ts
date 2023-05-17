@@ -4,7 +4,7 @@ import {
   Model,
   PrimaryKey,
   Table,
-  HasMany
+  HasMany,
 } from 'sequelize-typescript';
 import { Order } from 'src/orders/order.model';
 

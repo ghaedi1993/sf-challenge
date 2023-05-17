@@ -41,12 +41,12 @@ export class User extends Model {
   })
   role: UserRole;
 
-  @HasMany(()=>Trip)
-  trips: Trip[]
+  @HasMany(() => Trip)
+  trips: Trip[];
 
-  @HasMany(()=>Order)
-  orders: Order[]
+  @HasMany(() => Order)
+  orders: Order[];
 
-  @HasMany(()=>LateDelivery)
-  lateDeliveries: LateDelivery[]
+  @HasMany(() => LateDelivery)
+  lateDeliveries: LateDelivery[];
 }
