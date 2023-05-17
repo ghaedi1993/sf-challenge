@@ -1,5 +1,5 @@
 
-import { AutoIncrement, Column, DataType, Model, PrimaryKey, Table } from 'sequelize-typescript';
+import { Column, DataType, Model, PrimaryKey, Table } from 'sequelize-typescript';
 
 @Table
 export class User extends Model {
@@ -10,15 +10,6 @@ export class User extends Model {
       autoIncrement: true,
     })
     id: number;
-
-  @Column
-  firstName: string;
-
-  @Column
-  lastName: string;
-
-  @Column({ defaultValue: true })
-  isActive: boolean;
 
   @Column
   username: string;
