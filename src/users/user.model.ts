@@ -10,11 +10,11 @@ import { LateDelivery } from 'src/late-deliveries/late-delivery.model';
 import { Order } from 'src/orders/order.model';
 import { Trip } from 'src/trips/trip.model';
 
-enum UserRole {
+export enum UserRole {
   CUSTOMER = 'CUSTOMER',
   VENDOR_STAFF = 'VENDOR_STAFF',
   DELIVERY_DRIVER = 'DELIVERY_DRIVER',
-  AGEN = 'AGEN',
+  AGENT = 'AGENT',
 }
 
 @Table

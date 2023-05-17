@@ -9,7 +9,12 @@ import {
 } from 'sequelize-typescript';
 import { Order } from 'src/orders/order.model';
 import { User } from 'src/users/user.model';
-
+enum LATE_DELIVERY_STATUS { 
+  WAITING='WAITING',
+  PICKED='PICKED',
+  IN_PROCESS='IN_PROCESS',
+  DONE='DONE'
+}
 @Table
 export class LateDelivery extends Model {
   @PrimaryKey
@@ -19,8 +24,11 @@ export class LateDelivery extends Model {
   })
   id: number;
 
-  @Column
-  name: string;
+  @Column({
+    type: DataType.ENUM(...Object.values(LATE_DELIVERY_STATUS)),
+    allowNull: false,
+  })
+  status: LATE_DELIVERY_STATUS;
 
   @ForeignKey(() => Order)
   @Column
