@@ -32,6 +32,20 @@ module.exports = {
         updatedAt: new Date(),
         delivery_time:60
       },
+      {
+        vendorId: 1,
+        customerId: 6,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        delivery_time:60
+      },
+      {
+        vendorId: 2,
+        customerId: 6,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        delivery_time:70
+      },
     ];
     await queryInterface.bulkInsert('orders', ordersData, {});
 

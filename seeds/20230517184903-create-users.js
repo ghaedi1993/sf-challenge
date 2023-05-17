@@ -54,6 +54,14 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
+        username: 'customer_4@gmail.com',
+        password: 'password1',
+        salt: 'salt1',
+        role: 'CUSTOMER', // replace with the desired role value
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
         username: 'deliver_driver_1@gmail.com',
         password: 'password1',
         salt: 'salt1',
