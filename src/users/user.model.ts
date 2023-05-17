@@ -7,10 +7,10 @@ import {
 } from 'sequelize-typescript';
 
 enum UserRole {
-  CUSTOMER='CUSTOMER',
-  VENDOR_STAFF='VENDOR_STAFF',
-  DELIVERY_DRIVER='DELIVERY_DRIVER',
-  AGEN='AGEN'
+  CUSTOMER = 'CUSTOMER',
+  VENDOR_STAFF = 'VENDOR_STAFF',
+  DELIVERY_DRIVER = 'DELIVERY_DRIVER',
+  AGEN = 'AGEN',
 }
 
 @Table
@@ -33,7 +33,7 @@ export class User extends Model {
 
   @Column({
     type: DataType.ENUM(...Object.values(UserRole)),
-    allowNull: false,  
+    allowNull: false,
   })
   role: UserRole;
 }
