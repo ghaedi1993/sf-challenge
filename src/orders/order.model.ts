@@ -25,7 +25,7 @@ export class Order extends Model {
   id: number;
 
   @Column
-  delivery_time: number
+  delivery_time: number;
 
   @ForeignKey(() => Vendor)
   @Column
