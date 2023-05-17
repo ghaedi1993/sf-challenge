@@ -12,7 +12,6 @@ import { User } from 'src/users/user.model';
 enum LATE_DELIVERY_STATUS {
   WAITING = 'WAITING',
   PICKED = 'PICKED',
-  IN_PROCESS = 'IN_PROCESS',
   DONE = 'DONE',
 }
 @Table({ tableName: 'late_deliveries' })

@@ -20,14 +20,14 @@ module.exports = {
       },
       agentId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: 'users',
           key: 'id',
         },
       },
       status: {
-        type: Sequelize.ENUM(['WAITING','PICKED','IN_PROCESS','DONE']),
+        type: Sequelize.ENUM(['WAITING','PICKED','DONE']),
         allowNull: false,
         defaultValue:'WAITING'
       },

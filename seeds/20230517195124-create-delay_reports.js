@@ -28,6 +28,11 @@ module.exports = {
         orderId: 6,
         createdAt: new Date(),
         updatedAt: new Date(),
+      },
+      {
+        orderId: 7,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       }
     ];
     await queryInterface.bulkInsert('delay_reports', delayReportsData, {});

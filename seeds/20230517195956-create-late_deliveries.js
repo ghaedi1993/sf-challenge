@@ -8,12 +8,20 @@ module.exports = {
       {
         orderId: 5,
         agentId: 1,
+        status:'DONE',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         orderId: 6,
         agentId: 2,
+        status:'PICKED',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        orderId: 7,
+        status:'WAITING',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
