@@ -88,6 +88,6 @@
     }
   },
   "lint-staged": {
-    "*.ts": "npx eslint ./"
+    "*.ts": "npx eslint ./ --fix"
   }
 }
