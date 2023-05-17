@@ -10,7 +10,7 @@ export class VendorsService {
   async create(vendor: Partial<Vendor>) {
     return this.vendorsRepository.create(vendor);
   }
-  async findAll(where: Partial<Vendor>): Promise<Vendor[]> {
+  async findAll(where: Partial<Vendor> = {}): Promise<Vendor[]> {
     return this.vendorsRepository.findAll(where);
   }
   findOne(where: Partial<Vendor>): Promise<Vendor> {
