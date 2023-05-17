@@ -14,8 +14,12 @@ export class OrdersRepository {
     return this.orderModel.create({ ...user });
   }
 
-  async findAll(): Promise<Order[]> {
-    return this.orderModel.findAll();
+  async findAll(where:Partial<Order>): Promise<Order[]> {
+    return this.orderModel.findAll({
+      where:{
+        ...where
+      }
+    });
   }
 
   async findOne(where): Promise<Order> {
@@ -36,15 +40,6 @@ export class OrdersRepository {
   ): Promise<[number, Order[]]> {
     return this.orderModel.update(updateOrderDto, {
       where: { ...where },
-      returning: true,
-    });
-  }
-  async updateById(
-    id: number,
-    updateOrderDto: UpdateOrderDto,
-  ): Promise<[number, Order[]]> {
-    return this.orderModel.update(updateOrderDto, {
-      where: { id },
       returning: true,
     });
   }

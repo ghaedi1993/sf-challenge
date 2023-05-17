@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { User } from './user.model';
 import { UsersRepository } from './users.repository';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -15,5 +16,15 @@ export class UsersService {
 
   findOne(where: Partial<User>): Promise<User> {
     return this.usersRepository.findOne(where);
+  }
+
+  update(
+    where: Partial<User>,
+    updateUserDto: UpdateUserDto,
+  ): Promise<[number, User[]]> {
+    return this.usersRepository.update(where, updateUserDto);
+  }
+  async remove(id: number): Promise<number> {
+    return this.usersRepository.delete(id);
   }
 }

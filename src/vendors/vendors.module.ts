@@ -8,7 +8,7 @@ import { VendorsRepository } from './vendors.repository';
 @Module({
   imports: [SequelizeModule.forFeature([Vendor])],
   providers: [VendorsService, VendorsRepository],
-  exports: [VendorsService],
   controllers: [VendorsController],
+  exports: [VendorsService],
 })
 export class VendorsModule {}

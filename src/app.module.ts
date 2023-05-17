@@ -10,6 +10,8 @@ import { OrdersController } from './orders/orders.controller';
 import { OrdersModule } from './orders/orders.module';
 import { TripsModule } from './trips/trips.module';
 import { ConfigModule } from '@nestjs/config';
+import { DelayReportsModule } from './delay-reports/delay-reports.module';
+import { LateDeliveriesModule } from './late-deliveries/late-deliveries.module';
 
 @Module({
   imports: [
@@ -36,6 +38,8 @@ import { ConfigModule } from '@nestjs/config';
     VendorsModule,
     OrdersModule,
     TripsModule,
+    DelayReportsModule,
+    LateDeliveriesModule,
   ],
   controllers: [AppController, OrdersController],
   providers: [AppService],
