@@ -11,22 +11,21 @@ import { TripsModule } from './trips/trips.module';
 import { ConfigModule } from '@nestjs/config';
 import { DelayReportsModule } from './delay-reports/delay-reports.module';
 import { LateDeliveriesModule } from './late-deliveries/late-deliveries.module';
-
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env',
+      envFilePath: process.env.NODE_ENV === 'test' ? '.test.env' : '.development.env',
       isGlobal: true,
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
       host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT),
-      username: process.env.DB_USER,
-      password: process.env.DB_PASS,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       autoLoadModels: true,
-      synchronize: true,
+      synchronize: Boolean(process.env.SYNCHRONIZE),    
     }),
     AuthModule,
     UsersModule,
