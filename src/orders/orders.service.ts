@@ -11,7 +11,7 @@ export class OrdersService {
   async create(createOrderDto: CreateOrderDto) {
     return this.ordersRepository.create(createOrderDto);
   }
-  async findAll(where:Partial<Order>={}): Promise<Order[]> {
+  async findAll(where: Partial<Order> = {}): Promise<Order[]> {
     return this.ordersRepository.findAll(where);
   }
 

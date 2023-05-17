@@ -11,15 +11,17 @@ export class LateDeliveriesRepository {
     private lateDeliveryModel: typeof LateDelivery,
   ) {}
 
-  async create(createLateDelivery:CreateLateDeliveryDto): Promise<LateDelivery> {
+  async create(
+    createLateDelivery: CreateLateDeliveryDto,
+  ): Promise<LateDelivery> {
     return this.lateDeliveryModel.create({ ...createLateDelivery });
   }
 
-  async findAll(where:Partial<LateDelivery>): Promise<LateDelivery[]> {
+  async findAll(where: Partial<LateDelivery>): Promise<LateDelivery[]> {
     return this.lateDeliveryModel.findAll({
-      where:{
-        ...where
-      }
+      where: {
+        ...where,
+      },
     });
   }
 

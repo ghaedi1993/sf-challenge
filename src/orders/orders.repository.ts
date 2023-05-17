@@ -14,11 +14,11 @@ export class OrdersRepository {
     return this.orderModel.create({ ...user });
   }
 
-  async findAll(where:Partial<Order>): Promise<Order[]> {
+  async findAll(where: Partial<Order>): Promise<Order[]> {
     return this.orderModel.findAll({
-      where:{
-        ...where
-      }
+      where: {
+        ...where,
+      },
     });
   }
 

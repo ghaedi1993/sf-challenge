@@ -11,7 +11,7 @@ export class DelayReportsService {
   async create(createDelayReportDto: CreateDelayReportDto) {
     return this.delayreportsRepository.create(createDelayReportDto);
   }
-  async findAll(where:Partial<DelayReport>={}): Promise<DelayReport[]> {
+  async findAll(where: Partial<DelayReport> = {}): Promise<DelayReport[]> {
     return this.delayreportsRepository.findAll(where);
   }
 

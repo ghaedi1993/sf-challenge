@@ -15,11 +15,11 @@ export class DelayReportsRepository {
     return this.delayReportModel.create({ ...user });
   }
 
-  async findAll(where:Partial<DelayReport>): Promise<DelayReport[]> {
+  async findAll(where: Partial<DelayReport>): Promise<DelayReport[]> {
     return this.delayReportModel.findAll({
-      where:{
-        ...where
-      }
+      where: {
+        ...where,
+      },
     });
   }
 

@@ -11,7 +11,7 @@ export class LateDeliveriesService {
   async create(createLateDeliveryDto: CreateLateDeliveryDto) {
     return this.lateDeliveriesRepository.create(createLateDeliveryDto);
   }
-  async findAll(where:Partial<LateDelivery>={}): Promise<LateDelivery[]> {
+  async findAll(where: Partial<LateDelivery> = {}): Promise<LateDelivery[]> {
     return this.lateDeliveriesRepository.findAll(where);
   }
 

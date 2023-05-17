@@ -9,6 +9,6 @@ import { Trip } from './trip.model';
   imports: [SequelizeModule.forFeature([Trip])],
   controllers: [TripsController],
   providers: [TripsService, TripsRepository],
-  exports:[TripsService]
+  exports: [TripsService],
 })
 export class TripsModule {}

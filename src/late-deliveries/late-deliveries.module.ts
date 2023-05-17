@@ -8,7 +8,7 @@ import { LateDeliveriesRepository } from './late-deliveries.repository';
 @Module({
   imports: [SequelizeModule.forFeature([LateDelivery])],
   controllers: [LateDeliveriesController],
-  providers: [LateDeliveriesService,LateDeliveriesRepository],
-  exports:[LateDeliveriesService]
+  providers: [LateDeliveriesService, LateDeliveriesRepository],
+  exports: [LateDeliveriesService],
 })
 export class LateDeliveriesModule {}

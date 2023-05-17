@@ -8,7 +8,7 @@ import { DelayReport } from './delay-report.model';
 @Module({
   imports: [SequelizeModule.forFeature([DelayReport])],
   controllers: [DelayReportsController],
-  providers: [DelayReportsService,DelayReportsRepository],
-  exports:[DelayReportsService]
+  providers: [DelayReportsService, DelayReportsRepository],
+  exports: [DelayReportsService],
 })
 export class DelayReportsModule {}
