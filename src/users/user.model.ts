@@ -12,7 +12,6 @@ import { Trip } from 'src/trips/trip.model';
 
 export enum UserRole {
   CUSTOMER = 'CUSTOMER',
-  VENDOR_STAFF = 'VENDOR_STAFF',
   DELIVERY_DRIVER = 'DELIVERY_DRIVER',
   AGENT = 'AGENT',
 }

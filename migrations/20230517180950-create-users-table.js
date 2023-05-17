@@ -23,7 +23,7 @@ module.exports = {
         allowNull: false,
       },
       role: {
-        type: Sequelize.ENUM(['CUSTOMER','VENDOR_STAFF','DELIVERY_DRIVER','AGENT']),
+        type: Sequelize.ENUM(['CUSTOMER','DELIVERY_DRIVER','AGENT']),
         allowNull: false
       },
       createdAt: {
