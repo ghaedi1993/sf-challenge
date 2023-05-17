@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import helmet from 'helmet'; 
+import helmet from 'helmet';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
@@ -14,11 +14,11 @@ async function bootstrap() {
     .addTag('snapfood')
     .addBearerAuth()
     .build();
-    app.useGlobalPipes(new ValidationPipe());
-    app.enableCors();
-    app.use(helmet());
-    const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('api', app, document);
+  app.useGlobalPipes(new ValidationPipe());
+  app.enableCors();
+  app.use(helmet());
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
   await app.listen(3000);
 }
 bootstrap();

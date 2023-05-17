@@ -7,20 +7,11 @@ import {
 } from 'sequelize-typescript';
 
 @Table
-export class User extends Model {
+export class Trip extends Model {
   @PrimaryKey
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
   })
   id: number;
-
-  @Column
-  username: string;
-
-  @Column
-  password: string;
-
-  @Column
-  salt: string;
 }

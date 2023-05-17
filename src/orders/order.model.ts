@@ -7,7 +7,7 @@ import {
 } from 'sequelize-typescript';
 
 @Table
-export class User extends Model {
+export class Order extends Model {
   @PrimaryKey
   @Column({
     type: DataType.INTEGER,
@@ -16,11 +16,5 @@ export class User extends Model {
   id: number;
 
   @Column
-  username: string;
-
-  @Column
-  password: string;
-
-  @Column
-  salt: string;
+  name: string;
 }

@@ -5,26 +5,39 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { User } from './users/user.model';
+import { VendorsModule } from './vendors/vendors.module';
+import { OrdersController } from './orders/orders.controller';
+import { OrdersModule } from './orders/orders.module';
+import { TripsModule } from './trips/trips.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [AuthModule, UsersModule,
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+      isGlobal: true,
+    }),
     ThrottlerModule.forRoot({
       ttl: 60,
       limit: 10,
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'test',
-      password: 'test',
-      database: 'test',
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT),
+      username: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.DB_NAME,
       autoLoadModels: true,
       synchronize: true,
     }),
+    AuthModule,
+    UsersModule,
+    VendorsModule,
+    OrdersModule,
+    TripsModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, OrdersController],
   providers: [AppService],
 })
 export class AppModule {}
