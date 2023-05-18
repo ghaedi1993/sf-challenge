@@ -8,10 +8,11 @@ import { OrdersModule } from 'src/orders/orders.module';
 import { LateDeliveriesModule } from 'src/late-deliveries/late-deliveries.module';
 
 @Module({
-  imports: [SequelizeModule.forFeature([DelayReport]),
-  OrdersModule,
-  LateDeliveriesModule
-],
+  imports: [
+    SequelizeModule.forFeature([DelayReport]),
+    OrdersModule,
+    LateDeliveriesModule,
+  ],
   controllers: [DelayReportsController],
   providers: [DelayReportsService, DelayReportsRepository],
   exports: [DelayReportsService],

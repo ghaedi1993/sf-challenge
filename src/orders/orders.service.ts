@@ -8,7 +8,10 @@ import axios from 'axios';
 import { Trip, TripStatus } from 'src/trips/trip.model';
 import { DelayReportsService } from 'src/delay-reports/delay-reports.service';
 import { LateDeliveriesService } from 'src/late-deliveries/late-deliveries.service';
-import { LATE_DELIVERY_STATUS, LateDelivery } from 'src/late-deliveries/late-delivery.model';
+import {
+  LATE_DELIVERY_STATUS,
+  LateDelivery,
+} from 'src/late-deliveries/late-delivery.model';
 import { Vendor } from 'src/vendors/vendor.model';
 import { User } from 'src/users/user.model';
 @Injectable()
@@ -26,7 +29,10 @@ export class OrdersService {
     return this.ordersRepository.findAll(where);
   }
 
-  async findOne(where: Partial<Order>, options: FindOptions = {}): Promise<Order> {
+  async findOne(
+    where: Partial<Order>,
+    options: FindOptions = {},
+  ): Promise<Order> {
     return this.ordersRepository.findOne(where, options);
   }
   async update(
@@ -36,38 +42,49 @@ export class OrdersService {
     return this.ordersRepository.update(where, updateOrderDto);
   }
 
-  async isLate(orderId:number):Promise<Boolean>{
-    const order = await this.findOne({id:orderId},{include:[Trip]});
-    if(!order){
-      throw new BadRequestException('Invalid Order')
+  async isLate(orderId: number): Promise<boolean> {
+    const order = await this.findOne({ id: orderId }, { include: [Trip] });
+    if (!order) {
+      throw new BadRequestException('Invalid Order');
     }
-    const currentTime = moment(); 
-    const orderDeliverDueTime = moment(order.createdAt).add(order.delivery_time, 'minutes');
-    return currentTime.isAfter(orderDeliverDueTime) && order?.trip.status !== TripStatus.DELIVERED;
+    const currentTime = moment();
+    const orderDeliverDueTime = moment(order.createdAt).add(
+      order.delivery_time,
+      'minutes',
+    );
+    return (
+      currentTime.isAfter(orderDeliverDueTime) &&
+      order?.trip.status !== TripStatus.DELIVERED
+    );
   }
-  async isNotLate(orderId:number):Promise<Boolean>{
-    return !this.isLate(orderId)
+  async isNotLate(orderId: number): Promise<boolean> {
+    return !this.isLate(orderId);
   }
-  async hasLateDelivery(orderId:number):Promise<Boolean>{
-    const order = await this.findOne({id:orderId},{include:[LateDelivery]});
-    if(!order){
-      throw new BadRequestException('Invalid Order')
+  async hasLateDelivery(orderId: number): Promise<boolean> {
+    const order = await this.findOne(
+      { id: orderId },
+      { include: [LateDelivery] },
+    );
+    if (!order) {
+      throw new BadRequestException('Invalid Order');
     }
-    return order.lateDeliveries.some(lateDelivery=>lateDelivery.status !== LATE_DELIVERY_STATUS.DONE)
+    return order.lateDeliveries.some(
+      (lateDelivery) => lateDelivery.status !== LATE_DELIVERY_STATUS.DONE,
+    );
   }
-  async udpdateEta(orderId:number){
-            //  calling external function to get new eta
-            const {
-              data: {
-                data: { eta },
-              },
-            } = await axios.get(
-              'https://run.mocky.io/v3/122c2796-5df4-461c-ab75-87c1192b17f7',
-            );
-            // update eta
-            const updateOrder = await this.update(
-              { id: orderId },
-              { delivery_time: eta },
-            );
+  async udpdateEta(orderId: number) {
+    //  calling external function to get new eta
+    const {
+      data: {
+        data: { eta },
+      },
+    } = await axios.get(
+      'https://run.mocky.io/v3/122c2796-5df4-461c-ab75-87c1192b17f7',
+    );
+    // update eta
+    const updateOrder = await this.update(
+      { id: orderId },
+      { delivery_time: eta },
+    );
   }
 }

@@ -49,5 +49,4 @@ export class Order extends Model {
 
   @HasMany(() => LateDelivery)
   lateDeliveries: LateDelivery[];
-
 }

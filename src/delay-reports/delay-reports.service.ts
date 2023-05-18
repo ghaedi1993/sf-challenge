@@ -10,22 +10,26 @@ import { LateDelivery } from 'src/late-deliveries/late-delivery.model';
 
 @Injectable()
 export class DelayReportsService {
-  constructor(private delayreportsRepository: DelayReportsRepository,
-    private ordersService:OrdersService,
-    private lateDeliveriesService:LateDeliveriesService
-    ) {}
+  constructor(
+    private delayreportsRepository: DelayReportsRepository,
+    private ordersService: OrdersService,
+    private lateDeliveriesService: LateDeliveriesService,
+  ) {}
 
   async create(createDelayReportDto: CreateDelayReportDto) {
-    const {orderId} = createDelayReportDto; 
-    const order = await this.ordersService.findOne({ id: orderId},{include:[Trip,DelayReport,LateDelivery]});
-    if(order.trip.status === TripStatus.DELIVERED) {
-      throw new ConflictException('This order is already Delivered')
+    const { orderId } = createDelayReportDto;
+    const order = await this.ordersService.findOne(
+      { id: orderId },
+      { include: [Trip, DelayReport, LateDelivery] },
+    );
+    if (order.trip.status === TripStatus.DELIVERED) {
+      throw new ConflictException('This order is already Delivered');
     }
-    if(await this.ordersService.isLate(orderId)){
-      if(['ASSIGNED','AT_VENDOR','PICKED'].includes(order.trip.status)){
+    if (await this.ordersService.isLate(orderId)) {
+      if (['ASSIGNED', 'AT_VENDOR', 'PICKED'].includes(order.trip.status)) {
         this.ordersService.udpdateEta(orderId);
-      }else{
-        this.lateDeliveriesService.create({orderId})
+      } else {
+        this.lateDeliveriesService.create({ orderId });
       }
     }
     return this.lateDeliveriesService.create({ orderId });

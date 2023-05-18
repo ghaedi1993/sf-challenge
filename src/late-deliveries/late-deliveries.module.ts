@@ -8,10 +8,11 @@ import { OrdersModule } from 'src/orders/orders.module';
 import { UsersModule } from 'src/users/users.module';
 
 @Module({
-  imports: [SequelizeModule.forFeature([LateDelivery]),
-  forwardRef(()=>OrdersModule),
-  UsersModule
-],
+  imports: [
+    SequelizeModule.forFeature([LateDelivery]),
+    forwardRef(() => OrdersModule),
+    UsersModule,
+  ],
   controllers: [LateDeliveriesController],
   providers: [LateDeliveriesService, LateDeliveriesRepository],
   exports: [LateDeliveriesService],
