@@ -13,7 +13,7 @@ export class UsersRepository {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    return this.userModel.create({...createUserDto});
+    return this.userModel.create({ ...createUserDto });
   }
 
   async findAll(
