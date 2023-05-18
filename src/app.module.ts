@@ -34,7 +34,7 @@ import { LateDeliveriesModule } from './late-deliveries/late-deliveries.module';
     DelayReportsModule,
     LateDeliveriesModule,
   ],
-  controllers: [AppController, OrdersController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

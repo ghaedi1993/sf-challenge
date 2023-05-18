@@ -11,7 +11,7 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     return this.usersRepository.create(createUserDto);
   }
-  async findAll(where: Partial<User>, options = {}): Promise<User[]> {
+  async findAll(where: Partial<User> = {}, options = {}): Promise<User[]> {
     return this.usersRepository.findAll(where, options);
   }
 
