@@ -27,12 +27,14 @@ export class DelayReportsService {
     }
     if (await this.ordersService.isLate(orderId)) {
       if (['ASSIGNED', 'AT_VENDOR', 'PICKED'].includes(order.trip.status)) {
-        this.ordersService.udpdateEta(orderId);
+        this.ordersService.udpdateEta(orderId).catch((err) => console.log(err));
       } else {
-        this.lateDeliveriesService.create({ orderId });
+        this.lateDeliveriesService
+          .create({ orderId })
+          .catch((err) => console.log(err));
       }
     }
-    return this.create({ orderId });
+    return this.delayreportsRepository.create({ orderId });
   }
   async findAll(
     where: Partial<DelayReport> = {},

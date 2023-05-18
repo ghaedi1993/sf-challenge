@@ -5,20 +5,16 @@ import { Order } from './order.model';
 import { FindOptions, OrdersRepository } from './orders.repository';
 import * as moment from 'moment';
 import axios from 'axios';
-import { Trip, TripStatus } from 'src/trips/trip.model';
-import { DelayReportsService } from 'src/delay-reports/delay-reports.service';
+import { Trip } from 'src/trips/trip.model';
 import { LateDeliveriesService } from 'src/late-deliveries/late-deliveries.service';
 import {
   LATE_DELIVERY_STATUS,
   LateDelivery,
 } from 'src/late-deliveries/late-delivery.model';
-import { Vendor } from 'src/vendors/vendor.model';
-import { User } from 'src/users/user.model';
 @Injectable()
 export class OrdersService {
   constructor(
     private ordersRepository: OrdersRepository,
-    // private delayReportsService: DelayReportsService,
     private lateDeliveriesService: LateDeliveriesService,
   ) {}
 
@@ -80,9 +76,6 @@ export class OrdersService {
       'https://run.mocky.io/v3/122c2796-5df4-461c-ab75-87c1192b17f7',
     );
     // update eta
-    const updateOrder = await this.update(
-      { id: orderId },
-      { delivery_time: eta },
-    );
+    await this.update({ id: orderId }, { delivery_time: eta });
   }
 }
