@@ -58,6 +58,25 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Test Senarios 
+
+Order: 
+
+Successful Delivery 
+
+with Delay: 
+1- simple delay Report → Get Successful Delivery
+
+2- delay Report → Late Delivery (Without Trip or Not Assigned) 
+3- delay Report → Late Delivery( with Trip) → Re calculate 
+
+Queue : 
+
+1- Nothing in QUEUE 
+2- Already Picked One 
+3- Successful Pick 
+
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
