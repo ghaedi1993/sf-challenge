@@ -11,12 +11,12 @@ export class TripsService {
   async create(createTripDto: CreateTripDto) {
     return this.tripsRepository.create(createTripDto);
   }
-  async findAll(where: Partial<Trip> = {},options={}): Promise<Trip[]> {
-    return this.tripsRepository.findAll(where,options);
+  async findAll(where: Partial<Trip> = {}, options = {}): Promise<Trip[]> {
+    return this.tripsRepository.findAll(where, options);
   }
 
-  async findOne(where: Partial<Trip>,options={}): Promise<Trip> {
-    return this.tripsRepository.findOne(where,options);
+  async findOne(where: Partial<Trip>, options = {}): Promise<Trip> {
+    return this.tripsRepository.findOne(where, options);
   }
 
   async update(

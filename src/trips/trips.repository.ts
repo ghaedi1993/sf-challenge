@@ -17,29 +17,29 @@ export class TripsRepository {
 
   async findAll(
     where: Partial<Trip>,
-    options:FindOptions = {}
+    options: FindOptions = {},
   ): Promise<Trip[]> {
-    const {include , order} = options; 
+    const { include, order } = options;
     return this.tripModel.findAll({
       where: {
         ...where,
       },
       include,
-      order
+      order,
     });
   }
 
   async findOne(
     where: Partial<Trip>,
-    options:FindOptions = {}
+    options: FindOptions = {},
   ): Promise<Trip> {
-    const {include , order} = options; 
+    const { include, order } = options;
     return this.tripModel.findOne({
       where: {
         ...where,
       },
       include,
-      order
+      order,
     });
   }
 

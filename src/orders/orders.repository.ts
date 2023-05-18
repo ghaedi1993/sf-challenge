@@ -5,8 +5,8 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 import { Includeable } from 'sequelize';
 
 export interface FindOptions {
-  order?: [string, 'ASC' | 'DESC'][],
-  include?: Includeable[]
+  order?: [string, 'ASC' | 'DESC'][];
+  include?: Includeable[];
 }
 
 @Injectable()
@@ -22,29 +22,29 @@ export class OrdersRepository {
 
   async findAll(
     where: Partial<Order>,
-    options:FindOptions = {}
+    options: FindOptions = {},
   ): Promise<Order[]> {
-    const {include , order} = options; 
+    const { include, order } = options;
     return this.orderModel.findAll({
       where: {
         ...where,
       },
       include,
-      order
+      order,
     });
   }
 
   async findOne(
     where: Partial<Order>,
-    options:FindOptions = {}
+    options: FindOptions = {},
   ): Promise<Order> {
-    const {include , order} = options; 
+    const { include, order } = options;
     return this.orderModel.findOne({
       where: {
         ...where,
       },
       include,
-      order
+      order,
     });
   }
 

@@ -11,12 +11,18 @@ export class DelayReportsService {
   async create(createDelayReportDto: CreateDelayReportDto) {
     return this.delayreportsRepository.create(createDelayReportDto);
   }
-  async findAll(where: Partial<DelayReport> = {},options={}): Promise<DelayReport[]> {
-    return this.delayreportsRepository.findAll(where,options);
+  async findAll(
+    where: Partial<DelayReport> = {},
+    options = {},
+  ): Promise<DelayReport[]> {
+    return this.delayreportsRepository.findAll(where, options);
   }
 
-  async findOne(where: Partial<DelayReport>,options={}): Promise<DelayReport> {
-    return this.delayreportsRepository.findOne(where,options);
+  async findOne(
+    where: Partial<DelayReport>,
+    options = {},
+  ): Promise<DelayReport> {
+    return this.delayreportsRepository.findOne(where, options);
   }
 
   async update(

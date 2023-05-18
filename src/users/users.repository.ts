@@ -17,29 +17,29 @@ export class UsersRepository {
 
   async findAll(
     where: Partial<User>,
-    options:FindOptions = {}
+    options: FindOptions = {},
   ): Promise<User[]> {
-    const {include , order} = options; 
+    const { include, order } = options;
     return this.userModel.findAll({
       where: {
         ...where,
       },
       include,
-      order
+      order,
     });
   }
 
   async findOne(
     where: Partial<User>,
-    options:FindOptions = {}
+    options: FindOptions = {},
   ): Promise<User> {
-    const {include , order} = options; 
+    const { include, order } = options;
     return this.userModel.findOne({
       where: {
         ...where,
       },
       include,
-      order
+      order,
     });
   }
 

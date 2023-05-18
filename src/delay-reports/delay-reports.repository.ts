@@ -18,29 +18,29 @@ export class DelayReportsRepository {
 
   async findAll(
     where: Partial<DelayReport>,
-    options:FindOptions = {}
+    options: FindOptions = {},
   ): Promise<DelayReport[]> {
-    const {include , order} = options; 
+    const { include, order } = options;
     return this.delayReportModel.findAll({
       where: {
         ...where,
       },
       include,
-      order
+      order,
     });
   }
 
   async findOne(
     where: Partial<DelayReport>,
-    options:FindOptions = {}
+    options: FindOptions = {},
   ): Promise<DelayReport> {
-    const {include , order} = options; 
+    const { include, order } = options;
     return this.delayReportModel.findOne({
       where: {
         ...where,
       },
       include,
-      order
+      order,
     });
   }
 

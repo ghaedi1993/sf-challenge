@@ -21,29 +21,29 @@ export class LateDeliveriesRepository {
 
   async findAll(
     where: Partial<LateDelivery>,
-    options:FindOptions = {}
+    options: FindOptions = {},
   ): Promise<LateDelivery[]> {
-    const {include , order} = options; 
+    const { include, order } = options;
     return this.lateDeliveryModel.findAll({
       where: {
         ...where,
       },
       include,
-      order
+      order,
     });
   }
 
   async findOne(
     where: Partial<LateDelivery>,
-    options:FindOptions = {}
+    options: FindOptions = {},
   ): Promise<LateDelivery> {
-    const {include , order} = options; 
+    const { include, order } = options;
     return this.lateDeliveryModel.findOne({
       where: {
         ...where,
       },
       include,
-      order
+      order,
     });
   }
 

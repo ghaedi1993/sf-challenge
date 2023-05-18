@@ -10,12 +10,12 @@ export class UsersService {
   async create(user: Partial<User>) {
     return this.usersRepository.create(user);
   }
-  async findAll(where:Partial<User>,options={}): Promise<User[]> {
-    return this.usersRepository.findAll(where,options);
+  async findAll(where: Partial<User>, options = {}): Promise<User[]> {
+    return this.usersRepository.findAll(where, options);
   }
 
-  async findOne(where: Partial<User>,options={}): Promise<User> {
-    return this.usersRepository.findOne(where,options);
+  async findOne(where: Partial<User>, options = {}): Promise<User> {
+    return this.usersRepository.findOne(where, options);
   }
 
   update(
