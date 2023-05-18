@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { VendorsModule } from './vendors/vendors.module';
-import { OrdersController } from './orders/orders.controller';
 import { OrdersModule } from './orders/orders.module';
 import { TripsModule } from './trips/trips.module';
 import { ConfigModule } from '@nestjs/config';

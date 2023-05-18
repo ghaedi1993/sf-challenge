@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/sequelize';
 import { LateDelivery } from './late-delivery.model';
 import { UpdateLateDeliveryDto } from './dto/update-late-delivery.dto';
 import { CreateLateDeliveryDto } from './dto/create-late-delivery.dto';
-import { Includeable } from 'sequelize';
 import { FindOptions } from 'src/orders/orders.repository';
 
 @Injectable()
