@@ -52,13 +52,11 @@ export class OrdersService {
       order.delivery_time,
       'minutes',
     );
-    return (
-      currentTime.isAfter(orderDeliverDueTime) &&
-      order?.trip.status !== TripStatus.DELIVERED
-    );
+    return currentTime.isAfter(orderDeliverDueTime)
   }
   async isNotLate(orderId: number): Promise<boolean> {
-    return !this.isLate(orderId);
+    const isLate = await this.isLate(orderId);
+    return !isLate;
   }
   async hasLateDelivery(orderId: number): Promise<boolean> {
     const order = await this.findOne(

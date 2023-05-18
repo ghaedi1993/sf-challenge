@@ -12,6 +12,7 @@ import { LateDeliveriesRepository } from './late-deliveries.repository';
 import { OrdersService } from 'src/orders/orders.service';
 import { UsersService } from 'src/users/users.service';
 import { UserRole } from 'src/users/user.model';
+import { Trip, TripStatus } from 'src/trips/trip.model';
 
 @Injectable()
 export class LateDeliveriesService {
@@ -24,18 +25,17 @@ export class LateDeliveriesService {
 
   async create(createLateDeliveryDto: CreateLateDeliveryDto) {
     const { orderId } = createLateDeliveryDto;
-    const order = await this.ordersService.findOne(
-      { id: orderId },
-      { include: [LateDelivery] },
-    );
-    if (!order) {
-      throw new BadRequestException('Provide a Valid Order');
+    const order = await this.ordersService.findOne({id:orderId},{include:[Trip]})
+    if (order?.trip?.status === TripStatus.DELIVERED) {
+      throw new ConflictException('This order is already Delivered');
     }
-    if (await this.ordersService.isNotLate(orderId)) {
+    const isNotLate = await this.ordersService.isNotLate(orderId);
+    if (isNotLate) {
       throw new BadRequestException('Order is not late!');
     }
+    const hasLateDelivery = await this.ordersService.hasLateDelivery(orderId);
     // we should make sure the late delivery is for a valid order , not before deliver_time and not already in process
-    if (await this.ordersService.hasLateDelivery(orderId)) {
+    if (hasLateDelivery) {
       throw new BadRequestException(
         'This Order has a Late Delivery in Process',
       );

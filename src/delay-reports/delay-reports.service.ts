@@ -22,7 +22,7 @@ export class DelayReportsService {
       { id: orderId },
       { include: [Trip, DelayReport, LateDelivery] },
     );
-    if (order.trip.status === TripStatus.DELIVERED) {
+    if (order?.trip?.status === TripStatus.DELIVERED) {
       throw new ConflictException('This order is already Delivered');
     }
     if (await this.ordersService.isLate(orderId)) {
@@ -32,7 +32,7 @@ export class DelayReportsService {
         this.lateDeliveriesService.create({ orderId });
       }
     }
-    return this.lateDeliveriesService.create({ orderId });
+    return this.create({ orderId });
   }
   async findAll(
     where: Partial<DelayReport> = {},
