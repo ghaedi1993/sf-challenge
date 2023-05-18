@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Trip } from './trip.model';
 import { UpdateTripDto } from './dto/update-trip.dto';
 import { FindOptions } from 'src/orders/orders.repository';
+import { CreateTripDto } from './dto/create-trip.dto';
 
 @Injectable()
 export class TripsRepository {
@@ -11,8 +12,8 @@ export class TripsRepository {
     private tripModel: typeof Trip,
   ) {}
 
-  async create(trip: Partial<Trip>): Promise<Trip> {
-    return this.tripModel.create({ ...trip });
+  async create(createTripDto: CreateTripDto): Promise<Trip> {
+    return this.tripModel.create({ ...createTripDto });
   }
 
   async findAll(
