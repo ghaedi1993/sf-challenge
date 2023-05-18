@@ -14,14 +14,6 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
-      password: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      salt: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       role: {
         type: Sequelize.ENUM(['CUSTOMER','DELIVERY_DRIVER','AGENT']),
         allowNull: false
