@@ -84,7 +84,7 @@ export class LateDeliveriesService {
         order: [['createdAt', 'ASC']],
       },
     );
-    if(!firstInQueue){
+    if (!firstInQueue) {
       throw new NotFoundException('Nothing in Queue');
     }
     await this.update(

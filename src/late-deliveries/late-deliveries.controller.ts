@@ -22,19 +22,17 @@ export class LateDeliveriesController {
   }
 
   @Get('agents/:agentId/fetch-from-queue')
-  fetchFromQueue(@Param('agentId') agentId:number){
+  fetchFromQueue(@Param('agentId') agentId: number) {
     return this.lateDeliveriesService.fetchFromQueue(+agentId);
   }
 
-  
   @Get()
   findAll() {
     return this.lateDeliveriesService.findAll();
   }
-  
+
   @Patch(':id/done')
   fullfil(@Param('id') id: number) {
     return this.lateDeliveriesService.fullfil(+id);
   }
-
 }
