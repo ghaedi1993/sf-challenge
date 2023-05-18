@@ -31,6 +31,7 @@ module.exports = {
       },
       {
         orderId: 7,
+        status: 'WAITING',
         createdAt: moment(orders[6].createdAt).add(orders[6].delivery_time*2,'minutes').toDate(),
         updatedAt: moment(orders[6].createdAt).add(orders[6].delivery_time*2,'minutes').toDate(),
       },

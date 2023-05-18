@@ -13,9 +13,9 @@ export class LateDeliveriesRepository {
   ) {}
 
   async create(
-    createLateDelivery: CreateLateDeliveryDto,
+    createLateDeliveryDto: CreateLateDeliveryDto,
   ): Promise<LateDelivery> {
-    return this.lateDeliveryModel.create({ ...createLateDelivery });
+    return this.lateDeliveryModel.create({ ...createLateDeliveryDto });
   }
 
   async findAll(

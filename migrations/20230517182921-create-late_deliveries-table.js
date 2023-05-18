@@ -27,8 +27,9 @@ module.exports = {
         },
       },
       status: {
-        type: Sequelize.ENUM(['PICKED','DONE']),
-        allowNull: true,
+        type: Sequelize.ENUM(['PICKED','DONE','WAITING']),
+        defaultValue:'WAITING'
+        
       },
       createdAt: {
         type: Sequelize.DATE,

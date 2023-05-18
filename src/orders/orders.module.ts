@@ -10,7 +10,6 @@ import { LateDeliveriesModule } from 'src/late-deliveries/late-deliveries.module
 @Module({
   imports: [
     SequelizeModule.forFeature([Order]),
-    DelayReportsModule,
     LateDeliveriesModule,
   ],
   controllers: [OrdersController],

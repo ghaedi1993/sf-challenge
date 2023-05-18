@@ -47,6 +47,7 @@ export class Order extends Model {
   @HasOne(() => Trip)
   trip: Trip;
 
-  @HasOne(() => LateDelivery)
-  lateDelivery: LateDelivery;
+  @HasMany(() => LateDelivery)
+  lateDeliveries: LateDelivery[];
+
 }
