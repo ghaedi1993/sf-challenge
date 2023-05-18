@@ -52,7 +52,7 @@ export class OrdersService {
       order.delivery_time,
       'minutes',
     );
-    return currentTime.isAfter(orderDeliverDueTime)
+    return currentTime.isAfter(orderDeliverDueTime);
   }
   async isNotLate(orderId: number): Promise<boolean> {
     const isLate = await this.isLate(orderId);
