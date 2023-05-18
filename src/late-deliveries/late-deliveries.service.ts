@@ -3,6 +3,7 @@ import {
   ConflictException,
   Inject,
   Injectable,
+  NotFoundException,
   forwardRef,
 } from '@nestjs/common';
 import { CreateLateDeliveryDto } from './dto/create-late-delivery.dto';
@@ -64,7 +65,7 @@ export class LateDeliveriesService {
       { include: [LateDelivery] },
     );
     const alreadyPickedOne = agent.lateDeliveries.some(
-      (lateDelivery) => lateDelivery.status !== LATE_DELIVERY_STATUS.PICKED,
+      (lateDelivery) => lateDelivery.status == LATE_DELIVERY_STATUS.PICKED,
     );
     // make sure user is an agent and doesn't have a late delivery on hand
     if (!agent || agent.role !== UserRole.AGENT) {
@@ -83,6 +84,9 @@ export class LateDeliveriesService {
         order: [['createdAt', 'ASC']],
       },
     );
+    if(!firstInQueue){
+      throw new NotFoundException('Nothing in Queue');
+    }
     await this.update(
       { id: firstInQueue.id },
       { status: LATE_DELIVERY_STATUS.PICKED, agentId },
