@@ -9,7 +9,7 @@ import {
 } from 'sequelize-typescript';
 import { Order } from 'src/orders/order.model';
 import { User } from 'src/users/user.model';
-enum LATE_DELIVERY_STATUS {
+export enum LATE_DELIVERY_STATUS {
   PICKED = 'PICKED',
   DONE = 'DONE',
 }

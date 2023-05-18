@@ -3,6 +3,8 @@ import { InjectModel } from '@nestjs/sequelize';
 import { LateDelivery } from './late-delivery.model';
 import { UpdateLateDeliveryDto } from './dto/update-late-delivery.dto';
 import { CreateLateDeliveryDto } from './dto/create-late-delivery.dto';
+import { Includeable } from 'sequelize';
+import { FindOptions } from 'src/orders/orders.repository';
 
 @Injectable()
 export class LateDeliveriesRepository {
@@ -17,19 +19,31 @@ export class LateDeliveriesRepository {
     return this.lateDeliveryModel.create({ ...createLateDelivery });
   }
 
-  async findAll(where: Partial<LateDelivery>): Promise<LateDelivery[]> {
+  async findAll(
+    where: Partial<LateDelivery>,
+    options:FindOptions = {}
+  ): Promise<LateDelivery[]> {
+    const {include , order} = options; 
     return this.lateDeliveryModel.findAll({
       where: {
         ...where,
       },
+      include,
+      order
     });
   }
 
-  async findOne(where): Promise<LateDelivery> {
+  async findOne(
+    where: Partial<LateDelivery>,
+    options:FindOptions = {}
+  ): Promise<LateDelivery> {
+    const {include , order} = options; 
     return this.lateDeliveryModel.findOne({
       where: {
         ...where,
       },
+      include,
+      order
     });
   }
 

@@ -35,6 +35,10 @@ export class OrdersController {
     return this.ordersService.update({ id: +id }, updateOrderDto);
   }
 
+  @Patch(':id/report-delay')
+  reportDelay(@Param('id') id: string) {
+    return this.ordersService.reportDelay(+id);
+  }
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.ordersService.remove(+id);

@@ -10,7 +10,7 @@ import {
 import { Order } from 'src/orders/order.model';
 import { User } from 'src/users/user.model';
 
-enum TripStatus {
+export enum TripStatus {
   ASSIGNED = 'ASSIGNED',
   AT_VENDOR = 'AT_VENDOR',
   PICKED = 'PICKED',

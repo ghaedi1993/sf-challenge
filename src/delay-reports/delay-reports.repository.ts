@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { DelayReport } from './delay-report.model';
 import { UpdateDelayReportDto } from './dto/update-delay-report.dto';
 import { CreateDelayReportDto } from './dto/create-delay-report.dto';
+import { FindOptions } from 'src/orders/orders.repository';
 
 @Injectable()
 export class DelayReportsRepository {
@@ -15,19 +16,31 @@ export class DelayReportsRepository {
     return this.delayReportModel.create({ ...user });
   }
 
-  async findAll(where: Partial<DelayReport>): Promise<DelayReport[]> {
+  async findAll(
+    where: Partial<DelayReport>,
+    options:FindOptions = {}
+  ): Promise<DelayReport[]> {
+    const {include , order} = options; 
     return this.delayReportModel.findAll({
       where: {
         ...where,
       },
+      include,
+      order
     });
   }
 
-  async findOne(where): Promise<DelayReport> {
+  async findOne(
+    where: Partial<DelayReport>,
+    options:FindOptions = {}
+  ): Promise<DelayReport> {
+    const {include , order} = options; 
     return this.delayReportModel.findOne({
       where: {
         ...where,
       },
+      include,
+      order
     });
   }
 

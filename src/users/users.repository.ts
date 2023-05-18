@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from './user.model';
 import { UpdateUserDto } from 'src/users/dto/update-user.dto';
+import { FindOptions } from 'sequelize';
 
 @Injectable()
 export class UsersRepository {
@@ -14,19 +15,31 @@ export class UsersRepository {
     return this.userModel.create({ ...user });
   }
 
-  async findAll(where: Partial<User> = {}): Promise<User[]> {
+  async findAll(
+    where: Partial<User>,
+    options:FindOptions = {}
+  ): Promise<User[]> {
+    const {include , order} = options; 
     return this.userModel.findAll({
       where: {
         ...where,
       },
+      include,
+      order
     });
   }
 
-  async findOne(where: Partial<User>): Promise<User> {
+  async findOne(
+    where: Partial<User>,
+    options:FindOptions = {}
+  ): Promise<User> {
+    const {include , order} = options; 
     return this.userModel.findOne({
       where: {
         ...where,
       },
+      include,
+      order
     });
   }
 

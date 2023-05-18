@@ -2,6 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Order } from './order.model';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { Includeable } from 'sequelize';
+
+export interface FindOptions {
+  order?: [string, 'ASC' | 'DESC'][],
+  include?: Includeable[]
+}
 
 @Injectable()
 export class OrdersRepository {
@@ -14,19 +20,31 @@ export class OrdersRepository {
     return this.orderModel.create({ ...user });
   }
 
-  async findAll(where: Partial<Order>): Promise<Order[]> {
+  async findAll(
+    where: Partial<Order>,
+    options:FindOptions = {}
+  ): Promise<Order[]> {
+    const {include , order} = options; 
     return this.orderModel.findAll({
       where: {
         ...where,
       },
+      include,
+      order
     });
   }
 
-  async findOne(where): Promise<Order> {
+  async findOne(
+    where: Partial<Order>,
+    options:FindOptions = {}
+  ): Promise<Order> {
+    const {include , order} = options; 
     return this.orderModel.findOne({
       where: {
         ...where,
       },
+      include,
+      order
     });
   }
 

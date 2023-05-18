@@ -37,7 +37,7 @@ module.exports = {
         customerId: 6,
         createdAt: new Date(),
         updatedAt: new Date(),
-        delivery_time:60
+        delivery_time:1
       },
       {
         vendorId: 2,
