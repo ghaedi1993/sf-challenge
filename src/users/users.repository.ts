@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from './user.model';
 import { UpdateUserDto } from 'src/users/dto/update-user.dto';
 import { FindOptions } from 'sequelize';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UsersRepository {
@@ -11,8 +12,8 @@ export class UsersRepository {
     private userModel: typeof User,
   ) {}
 
-  async create(user: Partial<User>): Promise<User> {
-    return this.userModel.create({ ...user });
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    return this.userModel.create({...createUserDto});
   }
 
   async findAll(

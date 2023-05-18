@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { VendorsModule } from './vendors/vendors.module';
@@ -28,7 +27,6 @@ import { LateDeliveriesModule } from './late-deliveries/late-deliveries.module';
       autoLoadModels: true,
       synchronize: Boolean(process.env.SYNCHRONIZE),
     }),
-    AuthModule,
     UsersModule,
     VendorsModule,
     OrdersModule,

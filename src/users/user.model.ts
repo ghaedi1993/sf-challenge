@@ -28,12 +28,6 @@ export class User extends Model {
   @Column
   username: string;
 
-  @Column
-  password: string;
-
-  @Column
-  salt: string;
-
   @Column({
     type: DataType.ENUM(...Object.values(UserRole)),
     allowNull: false,

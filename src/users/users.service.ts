@@ -2,13 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { User } from './user.model';
 import { UsersRepository } from './users.repository';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(private usersRepository: UsersRepository) {}
 
-  async create(user: Partial<User>) {
-    return this.usersRepository.create(user);
+  async create(createUserDto: CreateUserDto) {
+    return this.usersRepository.create(createUserDto);
   }
   async findAll(where: Partial<User>, options = {}): Promise<User[]> {
     return this.usersRepository.findAll(where, options);
