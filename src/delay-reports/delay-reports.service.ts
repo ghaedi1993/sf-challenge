@@ -1,4 +1,8 @@
-import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+} from '@nestjs/common';
 import { CreateDelayReportDto } from './dto/create-delay-report.dto';
 import { UpdateDelayReportDto } from './dto/update-delay-report.dto';
 import { DelayReportsRepository } from './delay-reports.repository';
@@ -18,8 +22,8 @@ export class DelayReportsService {
 
   async create(createDelayReportDto: CreateDelayReportDto) {
     const { orderId } = createDelayReportDto;
-    if(!orderId){
-      throw new BadRequestException("Provide orderId")
+    if (!orderId) {
+      throw new BadRequestException('Provide orderId');
     }
     const order = await this.ordersService.findOne(
       { id: orderId },

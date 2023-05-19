@@ -17,7 +17,7 @@ describe('Delay Reports (e2e)', () => {
   let vendorsRepository: VendorsRepository;
   let ordersService: OrdersService;
   let tripsService: TripsService;
-  let delayReportsService:DelayReportsService
+  let delayReportsService: DelayReportsService;
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -30,7 +30,8 @@ describe('Delay Reports (e2e)', () => {
     vendorsRepository = moduleFixture.get<VendorsRepository>(VendorsRepository);
     ordersService = moduleFixture.get<OrdersService>(OrdersService);
     tripsService = moduleFixture.get<TripsService>(TripsService);
-    delayReportsService = moduleFixture.get<DelayReportsService>(DelayReportsService);
+    delayReportsService =
+      moduleFixture.get<DelayReportsService>(DelayReportsService);
     //Clear Database
     await Promise.all(await clearDB(sequelize.getQueryInterface()));
   });
@@ -40,11 +41,17 @@ describe('Delay Reports (e2e)', () => {
   });
 
   it('/delay-reports (GET)', () => {
-    return request(app.getHttpServer()).get('/delay-reports').expect(200).expect([]);
+    return request(app.getHttpServer())
+      .get('/delay-reports')
+      .expect(200)
+      .expect([]);
   });
 
   it('/delay-reports create witout orderId', async () => {
-    await request(app.getHttpServer()).post('/delay-reports').send({}).expect(400);
+    await request(app.getHttpServer())
+      .post('/delay-reports')
+      .send({})
+      .expect(400);
   });
 
   it('/delay-report create with a fake orderId and vendorId(POST)', async () => {
@@ -92,7 +99,9 @@ describe('Delay Reports (e2e)', () => {
       { orderId: orders[3].id },
     ];
     await Promise.all(
-      delayReports.map((delayReport) => delayReportsService.create(delayReport)),
+      delayReports.map((delayReport) =>
+        delayReportsService.create(delayReport),
+      ),
     );
 
     return request(app.getHttpServer())
