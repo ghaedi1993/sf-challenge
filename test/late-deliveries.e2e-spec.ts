@@ -4,17 +4,22 @@ import * as request from 'supertest';
 import { AppModule } from 'src/app.module';
 import { Sequelize } from 'sequelize';
 import { clearDB } from './util';
-import { UserRole } from 'src/users/user.model';
 import { UsersRepository } from 'src/users/users.repository';
-import { VendorsRepository } from 'src/vendors/vendors.repository';
 import { OrdersService } from 'src/orders/orders.service';
+import { VendorsRepository } from 'src/vendors/vendors.repository';
+import { UserRole } from 'src/users/user.model';
+import { TripsService } from 'src/trips/trips.service';
+import { LateDeliveriesService } from 'src/late-deliveries/late-deliveries.service';
+import * as moment from 'moment';
 
-describe('Orders (e2e)', () => {
+describe('Delay Reports (e2e)', () => {
   let app: INestApplication;
   let usersRepository: UsersRepository;
   let vendorsRepository: VendorsRepository;
   let ordersService: OrdersService;
-  let sequelize:Sequelize;
+  let tripsService: TripsService;
+  let lateDeliveriesService: LateDeliveriesService;
+  let sequelize: Sequelize;
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -26,7 +31,9 @@ describe('Orders (e2e)', () => {
     usersRepository = moduleFixture.get<UsersRepository>(UsersRepository);
     vendorsRepository = moduleFixture.get<VendorsRepository>(VendorsRepository);
     ordersService = moduleFixture.get<OrdersService>(OrdersService);
-
+    tripsService = moduleFixture.get<TripsService>(TripsService);
+    lateDeliveriesService =
+      moduleFixture.get<LateDeliveriesService>(LateDeliveriesService);
     //Clear Database
     await Promise.all(await clearDB(sequelize.getQueryInterface()));
   });
@@ -36,37 +43,28 @@ describe('Orders (e2e)', () => {
     await sequelize.close();
   });
 
-  it('/orders (GET)', () => {
-    return request(app.getHttpServer()).get('/orders').expect(200).expect([]);
+  it('/late-deliveries (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/late-deliveries')
+      .expect(200)
+      .expect([]);
   });
 
-  it('/orders create witout orderId and vendorId(POST)', async () => {
-    await request(app.getHttpServer()).post('/orders').send({}).expect(400);
-  });
-
-  it('/orders create with a fake orderId and vendorId(POST)', async () => {
-    const fakeCustomerId = 1;
-    const fakeVendorId = 1;
-
+  it('/late-deliveries create witout orderId', async () => {
     await request(app.getHttpServer())
-      .post('/orders')
-      .send({ vendorId: fakeVendorId, customerId: fakeCustomerId, eta: 10 })
+      .post('/late-deliveries')
+      .send({})
+      .expect(400);
+  });
+
+  it('/late-deliveries create with a fake orderId', async () => {
+    await request(app.getHttpServer())
+      .post('/late-deliveries')
+      .send({ orderId: 1 })
       .expect(404);
   });
-  it('/orders create(POST)', async () => {
-    const customer = await usersRepository.create({
-      username: 'customer_1@gmail.com',
-      role: UserRole.CUSTOMER,
-    });
-    const vendor = await vendorsRepository.create({ name: 'vendor_1' });
 
-    // Persist the user records to the database
-    await request(app.getHttpServer())
-      .post('/orders')
-      .send({ vendorId: vendor.id, customerId: customer.id, eta: 10 })
-      .expect(201);
-  });
-  it('/orders create and get (POST)(GET)', async () => {
+  it('/late-deliveries create late-deliveries and get (POST)(GET)', async () => {
     const userIds = [
       { username: 'customer_1@gmail.com', role: UserRole.CUSTOMER },
       { username: 'customer_2@gmail.com', role: UserRole.CUSTOMER },
@@ -92,14 +90,27 @@ describe('Orders (e2e)', () => {
       { customerId: users[2].id, vendorId: vendors[1].id, eta: 30 },
       { customerId: users[2].id, vendorId: vendors[1].id, eta: 20 },
     ];
-    await Promise.all(
+    const orders = await Promise.all(
       ordersToCreate.map((orderTocreate) =>
         ordersService.create(orderTocreate),
       ),
     );
+    // update orders to make them late
+    await Promise.all(orders.map((order)=>ordersService.update({id:order.id},{delivery_time:moment().subtract(100,'minutes').toDate()})))
+    const lateDeliveries = [
+      { orderId: orders[0].id },
+      { orderId: orders[1].id },
+      { orderId: orders[2].id },
+      { orderId: orders[3].id },
+    ];
+    await Promise.all(
+      lateDeliveries.map((lateDelivery) =>
+        lateDeliveriesService.create(lateDelivery),
+      ),
+    );
 
     return request(app.getHttpServer())
-      .get('/orders')
+      .get('/late-deliveries')
       .expect(200)
       .expect((response) => {
         expect(response.body).toHaveLength(4);

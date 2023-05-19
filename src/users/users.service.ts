@@ -18,11 +18,4 @@ export class UsersService {
   async findOne(where: Partial<User>, options = {}): Promise<User> {
     return this.usersRepository.findOne(where, options);
   }
-
-  update(
-    where: Partial<User>,
-    updateUserDto: UpdateUserDto,
-  ): Promise<[number, User[]]> {
-    return this.usersRepository.update(where, updateUserDto);
-  }
 }

@@ -7,6 +7,7 @@ import { clearDB } from './util';
 
 describe('Vendors (e2e)', () => {
   let app: INestApplication;
+  let sequelize: Sequelize;
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -14,13 +15,14 @@ describe('Vendors (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
-    const sequelize = app.get<'SEQUELIZE'>('SEQUELIZE') as unknown as Sequelize;
+    sequelize = app.get<'SEQUELIZE'>('SEQUELIZE') as unknown as Sequelize;
     //Clear Database
     await Promise.all(await clearDB(sequelize.getQueryInterface()));
   });
 
   afterEach(async () => {
     await app.close();
+    await sequelize.close();
   });
 
   it('/vendors (GET)', () => {

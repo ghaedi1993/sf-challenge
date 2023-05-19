@@ -18,6 +18,7 @@ describe('Delay Reports (e2e)', () => {
   let ordersService: OrdersService;
   let tripsService: TripsService;
   let delayReportsService: DelayReportsService;
+  let sequelize:Sequelize;
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -25,7 +26,7 @@ describe('Delay Reports (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
-    const sequelize = app.get<'SEQUELIZE'>('SEQUELIZE') as unknown as Sequelize;
+    sequelize = app.get<'SEQUELIZE'>('SEQUELIZE') as unknown as Sequelize;
     usersRepository = moduleFixture.get<UsersRepository>(UsersRepository);
     vendorsRepository = moduleFixture.get<VendorsRepository>(VendorsRepository);
     ordersService = moduleFixture.get<OrdersService>(OrdersService);
@@ -38,6 +39,7 @@ describe('Delay Reports (e2e)', () => {
 
   afterEach(async () => {
     await app.close();
+    await sequelize.close();
   });
 
   it('/delay-reports (GET)', () => {

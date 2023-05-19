@@ -26,10 +26,16 @@ export class LateDeliveriesService {
 
   async create(createLateDeliveryDto: CreateLateDeliveryDto) {
     const { orderId } = createLateDeliveryDto;
+    if(!orderId){
+      throw new BadRequestException("Provide orderId")
+    }
     const order = await this.ordersService.findOne(
       { id: orderId },
       { include: [Trip] },
     );
+    if(!order){
+      throw new NotFoundException("order Not found")
+    }
     if (order?.trip?.status === TripStatus.DELIVERED) {
       throw new ConflictException('This order is already Delivered');
     }
