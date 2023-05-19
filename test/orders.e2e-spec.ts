@@ -11,9 +11,9 @@ import { OrdersService } from 'src/orders/orders.service';
 
 describe('Orders (e2e)', () => {
   let app: INestApplication;
-  let usersRepository: UsersRepository
-  let vendorsRepository: VendorsRepository
-  let ordersService: OrdersService
+  let usersRepository: UsersRepository;
+  let vendorsRepository: VendorsRepository;
+  let ordersService: OrdersService;
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -25,7 +25,7 @@ describe('Orders (e2e)', () => {
     usersRepository = moduleFixture.get<UsersRepository>(UsersRepository);
     vendorsRepository = moduleFixture.get<VendorsRepository>(VendorsRepository);
     ordersService = moduleFixture.get<OrdersService>(OrdersService);
-    
+
     //Clear Database
     await Promise.all(await clearDB(sequelize.getQueryInterface()));
   });
@@ -39,60 +39,68 @@ describe('Orders (e2e)', () => {
   });
 
   it('/orders create witout orderId and vendorId(POST)', async () => {
-    await request(app.getHttpServer())
-      .post('/orders')
-      .send({})
-      .expect(400)
+    await request(app.getHttpServer()).post('/orders').send({}).expect(400);
   });
 
   it('/orders create with a fake orderId and vendorId(POST)', async () => {
-    const fakeCustomerId = 1
-    const fakeVendorId = 1
+    const fakeCustomerId = 1;
+    const fakeVendorId = 1;
 
     await request(app.getHttpServer())
       .post('/orders')
-      .send({vendorId:1,customerId:1})
-      .expect(404)
+      .send({ vendorId: 1, customerId: 1 })
+      .expect(404);
   });
   it('/orders create(POST)', async () => {
-    const customer = await usersRepository.create({username:"customer_1@gmail.com",role:UserRole.CUSTOMER}); 
-    const vendor = await vendorsRepository.create({name:"vendor_1"})
+    const customer = await usersRepository.create({
+      username: 'customer_1@gmail.com',
+      role: UserRole.CUSTOMER,
+    });
+    const vendor = await vendorsRepository.create({ name: 'vendor_1' });
 
     // Persist the user records to the database
     await request(app.getHttpServer())
       .post('/orders')
-      .send({vendorId:vendor.id,customerId:customer.id})
-      .expect(201)
+      .send({ vendorId: vendor.id, customerId: customer.id })
+      .expect(201);
   });
-  it('/orders create and get (POST)(GET)',async()=>{
-    let userIds = [
-      {username:"customer_1@gmail.com",role:UserRole.CUSTOMER},
-      {username:"customer_2@gmail.com",role:UserRole.CUSTOMER},
-      {username:"customer_3@gmail.com",role:UserRole.CUSTOMER}
-  ]
-  let vendorIds = [{
-    name:"vendor_1"
-  },{name:"vendor_2"}]
+  it('/orders create and get (POST)(GET)', async () => {
+    const userIds = [
+      { username: 'customer_1@gmail.com', role: UserRole.CUSTOMER },
+      { username: 'customer_2@gmail.com', role: UserRole.CUSTOMER },
+      { username: 'customer_3@gmail.com', role: UserRole.CUSTOMER },
+    ];
+    const vendorIds = [
+      {
+        name: 'vendor_1',
+      },
+      { name: 'vendor_2' },
+    ];
 
-  const users = await Promise.all(userIds.map(user=>usersRepository.create(user)))
-  const vendors = await Promise.all(vendorIds.map(vendor=>vendorsRepository.create(vendor)))
-  
-  const ordersToCreate = [
-    {customerId:users[0].id,vendorId:vendors[0].id,delivery_time:10},
-    {customerId:users[1].id,vendorId:vendors[1].id,delivery_time:20},
-    {customerId:users[2].id,vendorId:vendors[1].id,delivery_time:30},
-    {customerId:users[2].id,vendorId:vendors[1].id,delivery_time:20},
+    const users = await Promise.all(
+      userIds.map((user) => usersRepository.create(user)),
+    );
+    const vendors = await Promise.all(
+      vendorIds.map((vendor) => vendorsRepository.create(vendor)),
+    );
 
+    const ordersToCreate = [
+      { customerId: users[0].id, vendorId: vendors[0].id, delivery_time: 10 },
+      { customerId: users[1].id, vendorId: vendors[1].id, delivery_time: 20 },
+      { customerId: users[2].id, vendorId: vendors[1].id, delivery_time: 30 },
+      { customerId: users[2].id, vendorId: vendors[1].id, delivery_time: 20 },
+    ];
+    const orders = await Promise.all(
+      ordersToCreate.map((orderTocreate) =>
+        ordersService.create(orderTocreate),
+      ),
+    );
 
-]
-  const orders = await Promise.all(ordersToCreate.map(orderTocreate=>ordersService.create(orderTocreate)))
-
-  return request(app.getHttpServer())
-  .get('/orders')
-  .expect(200)
-  .expect((response)=>{
-    expect(response.body).toHaveLength(4);
+    return request(app.getHttpServer())
+      .get('/orders')
+      .expect(200)
+      .expect((response) => {
+        expect(response.body).toHaveLength(4);
+      });
   });
-
-  })
 });
