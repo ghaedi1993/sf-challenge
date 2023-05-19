@@ -56,7 +56,4 @@ export class DelayReportsService {
   ): Promise<[number, DelayReport[]]> {
     return this.delayreportsRepository.update(where, updateDelayReportDto);
   }
-  async remove(id: number): Promise<number> {
-    return this.delayreportsRepository.delete(id);
-  }
 }

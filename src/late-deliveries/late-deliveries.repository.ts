@@ -59,7 +59,4 @@ export class LateDeliveriesRepository {
       returning: true,
     });
   }
-  async delete(id: number): Promise<number> {
-    return this.lateDeliveryModel.destroy({ where: { id } });
-  }
 }

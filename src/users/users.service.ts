@@ -25,7 +25,4 @@ export class UsersService {
   ): Promise<[number, User[]]> {
     return this.usersRepository.update(where, updateUserDto);
   }
-  async remove(id: number): Promise<number> {
-    return this.usersRepository.delete(id);
-  }
 }

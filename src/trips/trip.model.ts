@@ -32,6 +32,12 @@ export class Trip extends Model {
   })
   status: TripStatus;
 
+  @Column({
+    type: DataType.DATE,
+    allowNull: true,
+  })
+  deliveredAt: Date;
+
   @ForeignKey(() => Order)
   @Column
   orderId: number;

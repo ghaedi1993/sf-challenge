@@ -22,7 +22,4 @@ export class VendorsService {
   ): Promise<[number, Vendor[]]> {
     return this.vendorsRepository.update(where, updateVendorDto);
   }
-  async remove(id: number): Promise<number> {
-    return this.vendorsRepository.delete(id);
-  }
 }

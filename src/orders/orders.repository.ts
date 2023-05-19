@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Order } from './order.model';
-import { UpdateOrderDto } from './dto/update-order.dto';
 import { Includeable } from 'sequelize';
 
 export interface FindOptions {
@@ -16,8 +15,8 @@ export class OrdersRepository {
     private orderModel: typeof Order,
   ) {}
 
-  async create(user: Partial<Order>): Promise<Order> {
-    return this.orderModel.create({ ...user });
+  async create(order: Partial<Order>): Promise<Order> {
+    return this.orderModel.create({ ...order });
   }
 
   async findAll(
@@ -54,14 +53,11 @@ export class OrdersRepository {
 
   async update(
     where: Partial<Order>,
-    updateOrderDto: UpdateOrderDto,
+    updateOrder: Partial<Order>,
   ): Promise<[number, Order[]]> {
-    return this.orderModel.update(updateOrderDto, {
+    return this.orderModel.update(updateOrder, {
       where: { ...where },
       returning: true,
     });
-  }
-  async delete(id: number): Promise<number> {
-    return this.orderModel.destroy({ where: { id } });
   }
 }

@@ -4,7 +4,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order } from './order.model';
 import { FindOptions, OrdersRepository } from './orders.repository';
 import * as moment from 'moment';
@@ -25,7 +24,10 @@ export class OrdersService {
   ) {}
 
   async create(createOrderDto: CreateOrderDto) {
-    const { vendorId, customerId } = createOrderDto;
+    const { vendorId, customerId, eta } = createOrderDto;
+    if (!eta) {
+      throw new BadRequestException('Provide an eta');
+    }
     if (!vendorId) {
       throw new BadRequestException('Provide vendorId');
     }
@@ -40,7 +42,14 @@ export class OrdersService {
     if (!customer) {
       throw new NotFoundException('User not Found');
     }
-    return this.ordersRepository.create(createOrderDto);
+    const delivery_time = moment().add(createOrderDto.eta, 'minutes').toDate();
+    const order = {
+      vendorId: createOrderDto.vendorId,
+      customerId: createOrderDto.customerId,
+      delivery_time,
+      expected_delivery_time: delivery_time,
+    };
+    return this.ordersRepository.create(order);
   }
   async findAll(where: Partial<Order> = {}): Promise<Order[]> {
     return this.ordersRepository.findAll(where);
@@ -54,9 +63,9 @@ export class OrdersService {
   }
   async update(
     where: Partial<Order>,
-    updateOrderDto: UpdateOrderDto,
+    updateOrder: Partial<Order>,
   ): Promise<[number, Order[]]> {
-    return this.ordersRepository.update(where, updateOrderDto);
+    return this.ordersRepository.update(where, updateOrder);
   }
 
   async isLate(orderId: number): Promise<boolean> {
@@ -65,10 +74,7 @@ export class OrdersService {
       throw new BadRequestException('Invalid Order');
     }
     const currentTime = moment();
-    const orderDeliverDueTime = moment(order.createdAt).add(
-      order.delivery_time,
-      'minutes',
-    );
+    const orderDeliverDueTime = moment(order.delivery_time);
     return currentTime.isAfter(orderDeliverDueTime);
   }
   async isNotLate(orderId: number): Promise<boolean> {
@@ -97,6 +103,9 @@ export class OrdersService {
       'https://run.mocky.io/v3/122c2796-5df4-461c-ab75-87c1192b17f7',
     );
     // update eta
-    await this.update({ id: orderId }, { delivery_time: eta });
+    await this.update(
+      { id: orderId },
+      { delivery_time: moment().add(eta, 'minutes').toDate() },
+    );
   }
 }

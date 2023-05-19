@@ -53,8 +53,4 @@ export class UsersRepository {
       returning: true,
     });
   }
-
-  async delete(id: number): Promise<number> {
-    return this.userModel.destroy({ where: { id } });
-  }
 }

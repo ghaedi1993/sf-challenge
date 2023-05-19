@@ -21,6 +21,9 @@ export class TripsService {
 
   async create(createTripDto: CreateTripDto) {
     const { deliveryDriverId, orderId } = createTripDto;
+    if (!orderId) {
+      throw new BadRequestException('Provide an orderId');
+    }
     // here we should check to make sure deliveryDriverId is of role DELIVERY_DRIVER
     if (deliveryDriverId) {
       const { role } = await this.usersService.findOne({
@@ -60,8 +63,5 @@ export class TripsService {
     updateTripDto: UpdateTripDto,
   ): Promise<[number, Trip[]]> {
     return this.tripsRepository.update(where, updateTripDto);
-  }
-  async remove(id: number): Promise<number> {
-    return this.tripsRepository.delete(id);
   }
 }

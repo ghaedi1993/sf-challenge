@@ -57,8 +57,4 @@ export class TripsRepository {
       returning: true,
     });
   }
-
-  async delete(id: number): Promise<number> {
-    return this.tripModel.destroy({ where: { id } });
-  }
 }

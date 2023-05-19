@@ -8,5 +8,5 @@ export class CreateOrderDto {
   customerId: number;
 
   @IsNotEmpty()
-  delivery_time: number;
+  eta: number;
 }

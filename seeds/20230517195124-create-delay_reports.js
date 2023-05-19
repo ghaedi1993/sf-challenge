@@ -16,46 +16,46 @@ module.exports = {
     const delayReportsData = [
       { 
         orderId: 1,
-        createdAt: moment(orders[0].createdAt).add(orders[0].delivery_time/2,'minutes').toDate(),
-        updatedAt: moment(orders[0].createdAt).add(orders[0].delivery_time/2,'minutes').toDate(),
+        createdAt: moment(orders[0].delivery_time).subtract(20,'minutes').toDate(),
+        updatedAt: moment(orders[0].delivery_time).subtract(20,'minutes').toDate(),
       },
       {
         orderId: 2,
-        createdAt: moment(orders[1].createdAt).add(orders[1].delivery_time/2,'minutes').toDate(),
-        updatedAt: moment(orders[1].createdAt).add(orders[1].delivery_time/2,'minutes').toDate(),
+        createdAt: moment(orders[1].delivery_time).subtract(21,'minutes').toDate(),
+        updatedAt: moment(orders[1].delivery_time).subtract(21,'minutes').toDate(),
       },
       {
         orderId: 4,
-        createdAt: moment(orders[3].createdAt).add(orders[3].delivery_time/2,'minutes').toDate(),
-        updatedAt: moment(orders[3].createdAt).add(orders[3].delivery_time/2,'minutes').toDate(),
+        createdAt: moment(orders[3].delivery_time).subtract(20,'minutes').toDate(),
+        updatedAt: moment(orders[3].delivery_time).subtract(20,'minutes').toDate(),
       },
       {
         orderId: 5,
-        createdAt: moment(orders[4].createdAt).add(orders[4].delivery_time*2,'minutes').toDate(),
-        updatedAt: moment(orders[4].createdAt).add(orders[4].delivery_time*2,'minutes').toDate(),
+        createdAt: moment(orders[4].delivery_time).subtract(30,'minutes').toDate(),
+        updatedAt: moment(orders[4].delivery_time).subtract(30,'minutes').toDate(),
       },
       {
         orderId: 6,
-        createdAt: moment(orders[5].createdAt).add(orders[5].delivery_time*2,'minutes').toDate(),
-        updatedAt: moment(orders[5].createdAt).add(orders[5].delivery_time*2,'minutes').toDate(),
+        createdAt: moment(orders[5].delivery_time).subtract(40,'minutes').toDate(),
+        updatedAt: moment(orders[5].delivery_time).subtract(40,'minutes').toDate(),
       },
       /* Only for the first delay_report related to orderId 7 a late_delivery is created since its still not done 
       the others are ignored
       */
       {
         orderId: 7,
-        createdAt: moment(orders[6].createdAt).add(orders[6].delivery_time*2,'minutes').toDate(),
-        updatedAt: moment(orders[6].createdAt).add(orders[6].delivery_time*2,'minutes').toDate(),
+        createdAt: moment(orders[0].delivery_time).subtract(120,'minutes').toDate(),
+        updatedAt: moment(orders[0].delivery_time).subtract(120,'minutes').toDate(),
       },
       {
         orderId: 7,
-        createdAt: moment(orders[6].createdAt).add(orders[6].delivery_time*3,'minutes').toDate(),
-        updatedAt: moment(orders[6].createdAt).add(orders[6].delivery_time*3,'minutes').toDate(),
+        createdAt: moment(orders[0].delivery_time).subtract(150,'minutes').toDate(),
+        updatedAt: moment(orders[0].delivery_time).subtract(150,'minutes').toDate(),
       },
       {
         orderId: 7,
-        createdAt: moment(orders[6].createdAt).add(orders[6].delivery_time*4,'minutes').toDate(),
-        updatedAt: moment(orders[6].createdAt).add(orders[6].delivery_time*4,'minutes').toDate(),
+        createdAt: moment(orders[0].delivery_time).subtract(160,'minutes').toDate(),
+        updatedAt: moment(orders[0].delivery_time).subtract(160,'minutes').toDate(),
       }
     ];
     await queryInterface.bulkInsert('delay_reports', delayReportsData, {});

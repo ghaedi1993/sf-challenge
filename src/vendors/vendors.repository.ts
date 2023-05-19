@@ -39,8 +39,4 @@ export class VendorsRepository {
       returning: true,
     });
   }
-
-  async delete(id: number): Promise<number> {
-    return this.vendorModel.destroy({ where: { id } });
-  }
 }

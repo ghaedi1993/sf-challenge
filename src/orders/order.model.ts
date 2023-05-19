@@ -24,8 +24,17 @@ export class Order extends Model {
   })
   id: number;
 
-  @Column
-  delivery_time: number;
+  @Column({
+    type: DataType.DATE,
+    allowNull: true,
+  })
+  delivery_time: Date;
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: true,
+  })
+  expected_delivery_time: Date;
 
   @ForeignKey(() => Vendor)
   @Column

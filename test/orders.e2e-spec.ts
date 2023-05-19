@@ -48,7 +48,7 @@ describe('Orders (e2e)', () => {
 
     await request(app.getHttpServer())
       .post('/orders')
-      .send({ vendorId: 1, customerId: 1 })
+      .send({ vendorId: fakeVendorId, customerId: fakeCustomerId, eta: 10 })
       .expect(404);
   });
   it('/orders create(POST)', async () => {
@@ -61,7 +61,7 @@ describe('Orders (e2e)', () => {
     // Persist the user records to the database
     await request(app.getHttpServer())
       .post('/orders')
-      .send({ vendorId: vendor.id, customerId: customer.id })
+      .send({ vendorId: vendor.id, customerId: customer.id, eta: 10 })
       .expect(201);
   });
   it('/orders create and get (POST)(GET)', async () => {
@@ -85,12 +85,12 @@ describe('Orders (e2e)', () => {
     );
 
     const ordersToCreate = [
-      { customerId: users[0].id, vendorId: vendors[0].id, delivery_time: 10 },
-      { customerId: users[1].id, vendorId: vendors[1].id, delivery_time: 20 },
-      { customerId: users[2].id, vendorId: vendors[1].id, delivery_time: 30 },
-      { customerId: users[2].id, vendorId: vendors[1].id, delivery_time: 20 },
+      { customerId: users[0].id, vendorId: vendors[0].id, eta: 10 },
+      { customerId: users[1].id, vendorId: vendors[1].id, eta: 20 },
+      { customerId: users[2].id, vendorId: vendors[1].id, eta: 30 },
+      { customerId: users[2].id, vendorId: vendors[1].id, eta: 20 },
     ];
-    const orders = await Promise.all(
+    await Promise.all(
       ordersToCreate.map((orderTocreate) =>
         ordersService.create(orderTocreate),
       ),

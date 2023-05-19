@@ -11,8 +11,12 @@ module.exports = {
         primaryKey: true,
       },
       delivery_time: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      expected_delivery_time: {
+        type: Sequelize.DATE,
+        allowNull: false,
       },
       vendorId: {
         type: Sequelize.INTEGER,

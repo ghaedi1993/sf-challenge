@@ -106,7 +106,4 @@ export class LateDeliveriesService {
   ): Promise<[number, LateDelivery[]]> {
     return this.lateDeliveriesRepository.update(where, updateLateDeliveryDto);
   }
-  async remove(id: number): Promise<number> {
-    return this.lateDeliveriesRepository.delete(id);
-  }
 }

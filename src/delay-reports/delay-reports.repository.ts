@@ -57,7 +57,4 @@ export class DelayReportsRepository {
       returning: true,
     });
   }
-  async delete(id: number): Promise<number> {
-    return this.delayReportModel.destroy({ where: { id } });
-  }
 }

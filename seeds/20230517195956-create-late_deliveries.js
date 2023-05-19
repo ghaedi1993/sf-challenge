@@ -19,21 +19,21 @@ module.exports = {
         orderId: 5,
         agentId: 1,
         status:'DONE',
-        createdAt: moment(orders[4].createdAt).add(orders[4].delivery_time*2,'minutes').toDate(),
-        updatedAt: moment(orders[4].createdAt).add(orders[4].delivery_time*2,'minutes').toDate(),
+        createdAt: moment(orders[4].delivery_time).subtract(120,'minutes').toDate(),
+        updatedAt: moment(orders[4].delivery_time).subtract(120,'minutes').toDate(),
       },
       {
         orderId: 6,
         agentId: 2,
         status:'PICKED',
-        createdAt: moment(orders[5].createdAt).add(orders[5].delivery_time*2,'minutes').toDate(),
-        updatedAt: moment(orders[5].createdAt).add(orders[5].delivery_time*2,'minutes').toDate(),
+        createdAt: moment(orders[5].delivery_time).subtract(200,'minutes').toDate(),
+        updatedAt: moment(orders[5].delivery_time).subtract(200,'minutes').toDate(),
       },
       {
         orderId: 7,
         status: 'WAITING',
-        createdAt: moment(orders[6].createdAt).add(orders[6].delivery_time*2,'minutes').toDate(),
-        updatedAt: moment(orders[6].createdAt).add(orders[6].delivery_time*2,'minutes').toDate(),
+        createdAt: moment(orders[6].delivery_time).subtract(200,'minutes').toDate(),
+        updatedAt: moment(orders[6].delivery_time).subtract(200,'minutes').toDate(),
       },
     ];
     await queryInterface.bulkInsert('late_deliveries', lateDeliveriesData, {});

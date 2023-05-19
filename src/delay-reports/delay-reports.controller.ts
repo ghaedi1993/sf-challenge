@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { DelayReportsService } from './delay-reports.service';
 import { CreateDelayReportDto } from './dto/create-delay-report.dto';
 import { UpdateDelayReportDto } from './dto/update-delay-report.dto';
@@ -36,10 +28,5 @@ export class DelayReportsController {
     @Body() updateDelayReportDto: UpdateDelayReportDto,
   ) {
     return this.delayReportsService.update({ id: +id }, updateDelayReportDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.delayReportsService.remove(+id);
   }
 }

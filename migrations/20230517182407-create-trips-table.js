@@ -15,6 +15,10 @@ module.exports = {
         type: Sequelize.ENUM(['ASSIGNED','AT_VENDOR','PICKED','DELIVERED']),
         allowNull: true
       },
+      deliveredAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
       orderId: {
         type: Sequelize.INTEGER,
         allowNull: false,
