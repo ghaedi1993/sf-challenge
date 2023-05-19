@@ -5,7 +5,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateTripDto } from './dto/create-trip.dto';
-import { UpdateTripDto } from './dto/update-trip.dto';
 import { TripsRepository } from './trips.repository';
 import { Trip } from './trip.model';
 import { UsersService } from 'src/users/users.service';
@@ -61,8 +60,8 @@ export class TripsService {
 
   async update(
     where: Partial<Trip>,
-    updateTripDto: UpdateTripDto,
+    updateTrip: Partial<Trip>,
   ): Promise<[number, Trip[]]> {
-    return this.tripsRepository.update(where, updateTripDto);
+    return this.tripsRepository.update(where, updateTrip);
   }
 }

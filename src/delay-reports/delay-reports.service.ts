@@ -32,7 +32,8 @@ export class DelayReportsService {
     if (order?.trip?.status === TripStatus.DELIVERED) {
       throw new ConflictException('This order is already Delivered');
     }
-    if (await this.ordersService.isLate(orderId)) {
+    const isLate = await this.ordersService.isLate(orderId);
+    if (isLate) {
       if (['ASSIGNED', 'AT_VENDOR', 'PICKED'].includes(order.trip.status)) {
         this.ordersService.udpdateEta(orderId).catch((err) => console.log(err));
       } else {

@@ -19,6 +19,7 @@ import { VendorsService } from 'src/vendors/vendors.service';
 import { UsersService } from 'src/users/users.service';
 import { Op } from 'sequelize';
 import { Vendor } from 'src/vendors/vendor.model';
+import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class OrdersService {
   constructor(
@@ -26,11 +27,12 @@ export class OrdersService {
     @Inject(forwardRef(() => VendorsService))
     private vendorsService: VendorsService,
     private usersService: UsersService,
+    private configService: ConfigService,
   ) {}
 
   async create(createOrderDto: CreateOrderDto) {
     const { vendorId, customerId, eta } = createOrderDto;
-    if (!eta) {
+    if (!eta && eta !== 0) {
       throw new BadRequestException('Provide an eta');
     }
     if (!vendorId) {
@@ -107,9 +109,7 @@ export class OrdersService {
       data: {
         data: { eta },
       },
-    } = await axios.get(
-      'https://run.mocky.io/v3/122c2796-5df4-461c-ab75-87c1192b17f7',
-    );
+    } = await axios.get(this.configService.get<string>('ETA_ENDPOINT'));
     // update eta
     await this.update(
       { id: orderId },

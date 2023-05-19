@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Trip } from './trip.model';
-import { UpdateTripDto } from './dto/update-trip.dto';
 import { FindOptions } from 'src/orders/orders.repository';
 import { CreateTripDto } from './dto/create-trip.dto';
 
@@ -50,9 +49,9 @@ export class TripsRepository {
 
   async update(
     where: Partial<Trip>,
-    updateTripDto: UpdateTripDto,
+    updateTrip: Partial<Trip>,
   ): Promise<[number, Trip[]]> {
-    return this.tripModel.update(updateTripDto, {
+    return this.tripModel.update(updateTrip, {
       where: { ...where },
       returning: true,
     });

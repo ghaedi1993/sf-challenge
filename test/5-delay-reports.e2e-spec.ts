@@ -8,7 +8,6 @@ import { UsersRepository } from 'src/users/users.repository';
 import { OrdersService } from 'src/orders/orders.service';
 import { VendorsRepository } from 'src/vendors/vendors.repository';
 import { UserRole } from 'src/users/user.model';
-import { TripsService } from 'src/trips/trips.service';
 import { DelayReportsService } from 'src/delay-reports/delay-reports.service';
 
 describe('Delay Reports (e2e)', () => {
@@ -16,7 +15,6 @@ describe('Delay Reports (e2e)', () => {
   let usersRepository: UsersRepository;
   let vendorsRepository: VendorsRepository;
   let ordersService: OrdersService;
-  let tripsService: TripsService;
   let delayReportsService: DelayReportsService;
   let sequelize: Sequelize;
   beforeEach(async () => {
@@ -30,7 +28,6 @@ describe('Delay Reports (e2e)', () => {
     usersRepository = moduleFixture.get<UsersRepository>(UsersRepository);
     vendorsRepository = moduleFixture.get<VendorsRepository>(VendorsRepository);
     ordersService = moduleFixture.get<OrdersService>(OrdersService);
-    tripsService = moduleFixture.get<TripsService>(TripsService);
     delayReportsService =
       moduleFixture.get<DelayReportsService>(DelayReportsService);
     //Clear Database
