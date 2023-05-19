@@ -17,7 +17,7 @@ module.exports = {
       },
       deliveredAt: {
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: true,
       },
       orderId: {
         type: Sequelize.INTEGER,

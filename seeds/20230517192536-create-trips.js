@@ -21,15 +21,16 @@ module.exports = {
         createdAt: moment(orders[0].delivery_time).subtract(20,'minutes').toDate(),
         updatedAt: moment(orders[0].delivery_time).subtract(20,'minutes').toDate(),
         status:'DELIVERED',
-        deliveredAt:moment(orders[0].delivery_time).toDate()
+        deliveredAt:moment(orders[0].delivery_time).add(20,'minutes').toDate()
       },
       // This belongs to an Assigned Order 
       {
         orderId: 2,
         deliveryDriverId: 7,
-        createdAt: moment(orders[1].delivery_time).subtract(41,'minutes').toDate(),
-        updatedAt: moment(orders[1].delivery_time).subtract(41,'minutes').toDate(),
-        status:'ASSIGNED'
+        createdAt: moment(orders[1].delivery_time).subtract(30,'minutes').toDate(),
+        updatedAt: moment(orders[1].delivery_time).subtract(30,'minutes').toDate(),
+        status:'DELIVERED',
+        deliveredAt:moment(orders[0].delivery_time).add(20,'minutes').toDate()
       },
       // This belongs to a At_vendor Order
       {

@@ -1,24 +1,29 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   NotFoundException,
+  forwardRef,
 } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { Order } from './order.model';
 import { FindOptions, OrdersRepository } from './orders.repository';
 import * as moment from 'moment';
 import axios from 'axios';
-import { Trip } from 'src/trips/trip.model';
+import { Trip, TripStatus } from 'src/trips/trip.model';
 import {
   LATE_DELIVERY_STATUS,
   LateDelivery,
 } from 'src/late-deliveries/late-delivery.model';
 import { VendorsService } from 'src/vendors/vendors.service';
 import { UsersService } from 'src/users/users.service';
+import { Op } from 'sequelize';
+import { Vendor } from 'src/vendors/vendor.model';
 @Injectable()
 export class OrdersService {
   constructor(
     private ordersRepository: OrdersRepository,
+    @Inject(forwardRef(()=>VendorsService))
     private vendorsService: VendorsService,
     private usersService: UsersService,
   ) {}
@@ -51,8 +56,8 @@ export class OrdersService {
     };
     return this.ordersRepository.create(order);
   }
-  async findAll(where: Partial<Order> = {}): Promise<Order[]> {
-    return this.ordersRepository.findAll(where);
+  async findAll(where: Partial<Order> = {},options:FindOptions={}): Promise<Order[]> {
+    return this.ordersRepository.findAll(where,options);
   }
 
   async findOne(
@@ -107,5 +112,38 @@ export class OrdersService {
       { id: orderId },
       { delivery_time: moment().add(eta, 'minutes').toDate() },
     );
+  }
+  async weeklyDelayReport(){
+    // joining vendors with orders and then with trip filtering the orders created for this week 
+    // filter those others that deliveredAt in trip is after expected_deliver_time in order
+    const startDate = moment().subtract(1, 'weeks').startOf('day').toDate();
+    const endDate = moment().endOf('day').toDate();
+    const thisWeekOrders = await this.findAll({
+      createdAt: {
+        [Op.between]: [startDate, endDate],
+      },
+    },{include:[Trip,Vendor]}); 
+
+    const lateOrders = thisWeekOrders.filter(order=>moment(order?.trip?.deliveredAt).isAfter(order.expected_delivery_time));
+    
+    const vendorDelays = {};
+
+    lateOrders.forEach(order => {
+      const vendorName = order.vendor.name;
+      const deliveredAt = order.trip.deliveredAt;
+      const expectedDeliverTime = order.expected_delivery_time;
+      const status = order.trip.status
+      if (status == TripStatus.DELIVERED) {
+        const delay = moment(deliveredAt).diff(moment(expectedDeliverTime), 'minutes');
+        
+        if (vendorDelays[vendorName]) {
+          vendorDelays[vendorName] += delay;
+        } else {
+          vendorDelays[vendorName] = delay;
+        }
+      }
+    });
+
+    return vendorDelays
   }
 }

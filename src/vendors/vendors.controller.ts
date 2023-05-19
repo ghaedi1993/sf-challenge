@@ -12,6 +12,10 @@ export class VendorsController {
     return this.vendorsService.create(createVendorDto);
   }
 
+  @Get('delay-report')
+  getDelayReport(){
+    return this.vendorsService.delayReport();
+  }
   @Get()
   findAll() {
     return this.vendorsService.findAll();
@@ -26,4 +30,5 @@ export class VendorsController {
   update(@Param('id') id: string, @Body() updateVendorDto: UpdateVendorDto) {
     return this.vendorsService.update({ id: +id }, updateVendorDto);
   }
+
 }

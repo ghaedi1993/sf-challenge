@@ -14,7 +14,7 @@ module.exports = {
         expected_delivery_time:moment().add(50,'minutes').toDate()
       },
       {
-        vendorId: 2,
+        vendorId: 1,
         customerId: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
