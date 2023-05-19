@@ -19,18 +19,17 @@ async function bootstrap() {
   app.use(helmet());
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-  
+
   // Gracefully handle termination signals
   process.on('SIGTERM', async () => {
     await app.close();
     process.exit(0);
   });
-  
+
   process.on('SIGINT', async () => {
     await app.close();
     process.exit(0);
   });
-
 
   await app.listen(3000);
 }

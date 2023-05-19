@@ -16,8 +16,7 @@ describe('Vendors (e2e)', () => {
     await app.init();
     const sequelize = app.get<'SEQUELIZE'>('SEQUELIZE') as unknown as Sequelize;
     //Clear Database
-    await Promise.all(await clearDB(sequelize.getQueryInterface()))
-
+    await Promise.all(await clearDB(sequelize.getQueryInterface()));
   });
 
   afterEach(async () => {
@@ -25,23 +24,19 @@ describe('Vendors (e2e)', () => {
   });
 
   it('/vendors (GET)', () => {
-    return request(app.getHttpServer())
-    .get('/vendors')
-    .expect(200)
-    .expect([]);
+    return request(app.getHttpServer()).get('/vendors').expect(200).expect([]);
   });
 
   it('/vendors (POST)', () => {
     const newVendor = {
-      name:"Snapfood"
-    }
+      name: 'Snapfood',
+    };
     return request(app.getHttpServer())
       .post('/vendors')
-      .send({...newVendor})
+      .send({ ...newVendor })
       .expect(201)
-      .expect((response)=>{
-        expect(response.body).toHaveProperty('name',newVendor.name)
+      .expect((response) => {
+        expect(response.body).toHaveProperty('name', newVendor.name);
       });
   });
 });
-

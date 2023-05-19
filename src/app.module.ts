@@ -18,8 +18,8 @@ import { DatabaseModule } from './database/database.module';
       isGlobal: true,
     }),
     SequelizeModule.forRootAsync({
-      inject:[ConfigService],
-      useFactory: (configService:ConfigService) => ({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
         dialect: 'postgres',
         host: configService.get<string>('DB_HOST'),
         port: configService.get<number>('DB_PORT'),
@@ -27,8 +27,8 @@ import { DatabaseModule } from './database/database.module';
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
         autoLoadModels: true,
-        logging:false
-      })
+        logging: false,
+      }),
     }),
     UsersModule,
     VendorsModule,
@@ -36,7 +36,7 @@ import { DatabaseModule } from './database/database.module';
     TripsModule,
     DelayReportsModule,
     LateDeliveriesModule,
-    DatabaseModule
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,4 +1,3 @@
-
 import { Sequelize } from 'sequelize-typescript';
 import { DelayReport } from 'src/delay-reports/delay-report.model';
 import { LateDelivery } from 'src/late-deliveries/late-delivery.model';
@@ -19,10 +18,17 @@ export const databaseProviders = [
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        logging:false,
+        logging: false,
       });
-      sequelize.addModels([Vendor,Order,User,DelayReport,Trip,LateDelivery]);
-      process.env.NODE_ENV === 'development' && await sequelize.sync();
+      sequelize.addModels([
+        Vendor,
+        Order,
+        User,
+        DelayReport,
+        Trip,
+        LateDelivery,
+      ]);
+      process.env.NODE_ENV === 'development' && (await sequelize.sync());
       return sequelize;
     },
     inject: [ConfigService],

@@ -17,8 +17,7 @@ describe('Users (e2e)', () => {
     await app.init();
     const sequelize = app.get<'SEQUELIZE'>('SEQUELIZE') as unknown as Sequelize;
     //Clear Database
-    await Promise.all(await clearDB(sequelize.getQueryInterface()))
-
+    await Promise.all(await clearDB(sequelize.getQueryInterface()));
   });
 
   afterEach(async () => {
@@ -26,25 +25,21 @@ describe('Users (e2e)', () => {
   });
 
   it('/users (GET)', () => {
-    return request(app.getHttpServer())
-    .get('/users')
-    .expect(200)
-    .expect([]);
+    return request(app.getHttpServer()).get('/users').expect(200).expect([]);
   });
 
   it('/users (POST)', () => {
     const newUser = {
-      username:"javad@gmail.com",
-      role:UserRole.CUSTOMER
-    }
+      username: 'javad@gmail.com',
+      role: UserRole.CUSTOMER,
+    };
     return request(app.getHttpServer())
       .post('/users')
-      .send({...newUser})
+      .send({ ...newUser })
       .expect(201)
-      .expect((response)=>{
-        expect(response.body).toHaveProperty('username',newUser.username)
-        expect(response.body).toHaveProperty('role',newUser.role)
+      .expect((response) => {
+        expect(response.body).toHaveProperty('username', newUser.username);
+        expect(response.body).toHaveProperty('role', newUser.role);
       });
   });
 });
-
