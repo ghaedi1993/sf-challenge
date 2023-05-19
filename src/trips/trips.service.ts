@@ -2,6 +2,7 @@ import {
   BadRequestException,
   ConflictException,
   Injectable,
+  NotFoundException,
 } from '@nestjs/common';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
@@ -43,7 +44,7 @@ export class TripsService {
       },
     );
     if (!order) {
-      throw new BadRequestException('Provide a Valid Order');
+      throw new NotFoundException('Provide a Valid Order');
     }
     if (order.trip) {
       throw new ConflictException('Order Already has a Trip');

@@ -1,4 +1,4 @@
-import { Inject, Injectable, forwardRef } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Vendor } from './vendor.model';
 import { VendorsRepository } from './vendors.repository';
 import { UpdateVendorDto } from './dto/update-vendor.dto';

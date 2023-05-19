@@ -21,11 +21,6 @@ export class VendorsController {
     return this.vendorsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.vendorsService.findOne({ id: +id });
-  }
-
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateVendorDto: UpdateVendorDto) {
     return this.vendorsService.update({ id: +id }, updateVendorDto);

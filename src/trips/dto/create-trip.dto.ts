@@ -5,5 +5,5 @@ export class CreateTripDto {
   orderId: number;
 
   @IsOptional()
-  deliveryDriverId: number;
+  deliveryDriverId?: number;
 }
