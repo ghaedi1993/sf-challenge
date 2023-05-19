@@ -18,7 +18,7 @@ describe('Delay Reports (e2e)', () => {
   let ordersService: OrdersService;
   let tripsService: TripsService;
   let delayReportsService: DelayReportsService;
-  let sequelize:Sequelize;
+  let sequelize: Sequelize;
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],

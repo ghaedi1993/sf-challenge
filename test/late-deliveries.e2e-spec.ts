@@ -32,8 +32,9 @@ describe('Delay Reports (e2e)', () => {
     vendorsRepository = moduleFixture.get<VendorsRepository>(VendorsRepository);
     ordersService = moduleFixture.get<OrdersService>(OrdersService);
     tripsService = moduleFixture.get<TripsService>(TripsService);
-    lateDeliveriesService =
-      moduleFixture.get<LateDeliveriesService>(LateDeliveriesService);
+    lateDeliveriesService = moduleFixture.get<LateDeliveriesService>(
+      LateDeliveriesService,
+    );
     //Clear Database
     await Promise.all(await clearDB(sequelize.getQueryInterface()));
   });
@@ -96,7 +97,14 @@ describe('Delay Reports (e2e)', () => {
       ),
     );
     // update orders to make them late
-    await Promise.all(orders.map((order)=>ordersService.update({id:order.id},{delivery_time:moment().subtract(100,'minutes').toDate()})))
+    await Promise.all(
+      orders.map((order) =>
+        ordersService.update(
+          { id: order.id },
+          { delivery_time: moment().subtract(100, 'minutes').toDate() },
+        ),
+      ),
+    );
     const lateDeliveries = [
       { orderId: orders[0].id },
       { orderId: orders[1].id },

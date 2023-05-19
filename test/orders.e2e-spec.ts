@@ -14,7 +14,7 @@ describe('Orders (e2e)', () => {
   let usersRepository: UsersRepository;
   let vendorsRepository: VendorsRepository;
   let ordersService: OrdersService;
-  let sequelize:Sequelize;
+  let sequelize: Sequelize;
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],

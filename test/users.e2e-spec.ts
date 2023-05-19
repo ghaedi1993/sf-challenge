@@ -25,7 +25,6 @@ describe('Users (e2e)', () => {
   afterEach(async () => {
     await app.close();
     await sequelize.close();
-
   });
 
   it('/users (GET)', () => {
