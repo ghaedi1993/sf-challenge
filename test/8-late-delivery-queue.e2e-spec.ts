@@ -125,4 +125,105 @@ describe('Late delivery Qeue (e2e)', () => {
         expect(response.body).toHaveLength(4);
       });
   });
+
+  it('/should not be possible for an agent to get more than one late delivery', async () => {
+    const userIds = [
+      { username: 'customer_1@gmail.com', role: UserRole.CUSTOMER },
+      { username: 'customer_2@gmail.com', role: UserRole.CUSTOMER },
+      { username: 'customer_3@gmail.com', role: UserRole.CUSTOMER },
+      { username: 'agent_1@gmail.com', role: UserRole.AGENT },
+    ];
+    const vendorIds = [
+      {
+        name: 'vendor_1',
+      },
+      { name: 'vendor_2' },
+    ];
+
+    const users = await Promise.all(
+      userIds.map((user) => usersService.create(user)),
+    );
+    const vendors = await Promise.all(
+      vendorIds.map((vendor) => vendorsService.create(vendor)),
+    );
+
+    const ordersToCreate = [
+      { customerId: users[0].id, vendorId: vendors[0].id, eta: 0 },
+      { customerId: users[1].id, vendorId: vendors[0].id, eta: 0 },
+      { customerId: users[2].id, vendorId: vendors[1].id, eta: 0 },
+      { customerId: users[2].id, vendorId: vendors[1].id, eta: 0 },
+    ];
+    const orders = await Promise.all(
+      ordersToCreate.map((orderTocreate) =>
+        ordersService.create(orderTocreate),
+      ),
+    );
+    // get orders for every vendor
+    const vendor_1_orders = orders
+      .filter((order) => order.vendorId == 1)
+      .map((order) => order.id);
+    const vendor_2_orders = orders
+      .filter((order) => order.vendorId == 2)
+      .map((order) => order.id);
+
+    const tripsTocreate = [
+      { orderId: orders[0].id },
+      { orderId: orders[1].id },
+      { orderId: orders[2].id },
+      { orderId: orders[3].id },
+    ];
+    // trips created for all orders at the same time of order creation for simplicity
+    // for vendor_1 we want to make it on time but for vendor_2 its going to be late
+    const trips = await Promise.all(
+      tripsTocreate.map((tripTocreate) => tripsService.create(tripTocreate)),
+    );
+
+    await Promise.all(
+      trips.map((trip) => {
+        // no change for vendor_1 related trips meaning they are still not asssigned
+        if (vendor_1_orders.includes(trip.orderId)) {
+          return;
+        }
+        // late but assigned
+        if (vendor_2_orders.includes(trip.orderId)) {
+          return tripsService.update(
+            { id: trip.id },
+            {
+              status: TripStatus.ASSIGNED,
+            },
+          );
+        }
+      }),
+    );
+    // we try to create delay report for all
+    await Promise.all(
+      orders
+        .map((order) => order.id)
+        .map((orderId) => delayReportsService.create({ orderId })),
+    );
+
+    const agent = users
+      .filter((user) => user.role == UserRole.AGENT)
+      .map((user) => user.id)[0];
+
+    // fetch one from queue
+    const { body: lateDeliveryInQueue } = await request(app.getHttpServer())
+      .get(`/late-deliveries/agents/${agent}/fetch-from-queue`)
+      .expect(200);
+
+    // fetch another one (failed)
+    await request(app.getHttpServer())
+      .get(`/late-deliveries/agents/${agent}/fetch-from-queue`)
+      .expect(409);
+
+    // fullfil the fetched one
+    await request(app.getHttpServer())
+      .patch(`/late-deliveries/${lateDeliveryInQueue.id}/done`)
+      .expect(200);
+
+    // fetch again (success)
+    await request(app.getHttpServer())
+      .get(`/late-deliveries/agents/${agent}/fetch-from-queue`)
+      .expect(200);
+  });
 });
