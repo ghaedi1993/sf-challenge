@@ -29,7 +29,7 @@ describe('Users (e2e)', () => {
     return request(app.getHttpServer()).get('/users').expect(200).expect([]);
   });
 
-  it('/users (POST)', async() => {
+  it('/users (POST)', async () => {
     const customer = {
       username: 'customer@gmail.com',
       role: UserRole.CUSTOMER,
@@ -44,42 +44,51 @@ describe('Users (e2e)', () => {
         expect(response.body).toHaveProperty('role', customer.role);
       });
   });
-  it('/user (POST) (GET)', async()=>{
+  it('/user (POST) (GET)', async () => {
     const agent = {
       username: 'agent@gmail.com',
-      role: UserRole.AGENT
-    }
-    const deliveryDriver:CreateUserDto = {
+      role: UserRole.AGENT,
+    };
+    const deliveryDriver: CreateUserDto = {
       username: 'deliver_driver@gmail.com',
-      role: UserRole.DELIVERY_DRIVER
-    }
+      role: UserRole.DELIVERY_DRIVER,
+    };
     await request(app.getHttpServer())
-    .post('/users')
-    .send({ ...agent })
-    .expect(201)
-    .expect((response) => {
-      expect(response.body).toHaveProperty('username', agent.username);
-      expect(response.body).toHaveProperty('role', agent.role);
-    });
+      .post('/users')
+      .send({ ...agent })
+      .expect(201)
+      .expect((response) => {
+        expect(response.body).toHaveProperty('username', agent.username);
+        expect(response.body).toHaveProperty('role', agent.role);
+      });
     await request(app.getHttpServer())
-    .post('/users')
-    .send({ ...deliveryDriver })
-    .expect(201)
-    .expect((response) => {
-      expect(response.body).toHaveProperty('username', deliveryDriver.username);
-      expect(response.body).toHaveProperty('role', deliveryDriver.role);
-    });
+      .post('/users')
+      .send({ ...deliveryDriver })
+      .expect(201)
+      .expect((response) => {
+        expect(response.body).toHaveProperty(
+          'username',
+          deliveryDriver.username,
+        );
+        expect(response.body).toHaveProperty('role', deliveryDriver.role);
+      });
     await request(app.getHttpServer())
-    .get('/users')
-    .expect(200)
-    .expect((response) => {
-      expect(response.body).toHaveLength(2);
-      const containsAgentRole = response.body.some((obj:CreateUserDto) => obj.role === UserRole.AGENT);
-      expect(containsAgentRole).toBe(true);   
-      const containsDeliveryDriverRole = response.body.some((obj:CreateUserDto) => obj.role === UserRole.DELIVERY_DRIVER);
-      expect(containsDeliveryDriverRole).toBe(true); 
-      const containsCustomerRole = response.body.some((obj:CreateUserDto) => obj.role === UserRole.CUSTOMER);   
-      expect(containsCustomerRole).not.toBe(true);
-    });
-  })
+      .get('/users')
+      .expect(200)
+      .expect((response) => {
+        expect(response.body).toHaveLength(2);
+        const containsAgentRole = response.body.some(
+          (obj: CreateUserDto) => obj.role === UserRole.AGENT,
+        );
+        expect(containsAgentRole).toBe(true);
+        const containsDeliveryDriverRole = response.body.some(
+          (obj: CreateUserDto) => obj.role === UserRole.DELIVERY_DRIVER,
+        );
+        expect(containsDeliveryDriverRole).toBe(true);
+        const containsCustomerRole = response.body.some(
+          (obj: CreateUserDto) => obj.role === UserRole.CUSTOMER,
+        );
+        expect(containsCustomerRole).not.toBe(true);
+      });
+  });
 });
