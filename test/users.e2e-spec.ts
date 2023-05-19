@@ -44,7 +44,7 @@ describe('Users (e2e)', () => {
         expect(response.body).toHaveProperty('role', customer.role);
       });
   });
-  it('/user (POST) (GET)', async () => {
+  it('/users (POST) (GET)', async () => {
     const agent = {
       username: 'agent@gmail.com',
       role: UserRole.AGENT,

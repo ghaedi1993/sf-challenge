@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order } from './order.model';
@@ -6,19 +6,36 @@ import { FindOptions, OrdersRepository } from './orders.repository';
 import * as moment from 'moment';
 import axios from 'axios';
 import { Trip } from 'src/trips/trip.model';
-import { LateDeliveriesService } from 'src/late-deliveries/late-deliveries.service';
 import {
   LATE_DELIVERY_STATUS,
   LateDelivery,
 } from 'src/late-deliveries/late-delivery.model';
+import { VendorsService } from 'src/vendors/vendors.service';
+import { UsersService } from 'src/users/users.service';
 @Injectable()
 export class OrdersService {
   constructor(
     private ordersRepository: OrdersRepository,
-    private lateDeliveriesService: LateDeliveriesService,
+    private vendorsService:VendorsService,
+    private usersService:UsersService
   ) {}
 
   async create(createOrderDto: CreateOrderDto) {
+    const {vendorId,customerId} = createOrderDto;
+    if(!vendorId){
+      throw new BadRequestException("Provide vendorId")
+    }
+    if(!customerId){
+      throw new BadRequestException("Provide customerId")
+    }
+    const vendor = await this.vendorsService.findOne({id:vendorId}); 
+    const customer = await this.usersService.findOne({id:customerId}); 
+    if(!vendor){
+      throw new NotFoundException("Vendor not found")
+    }
+    if(!customer){
+      throw new NotFoundException("User not Found")
+    }
     return this.ordersRepository.create(createOrderDto);
   }
   async findAll(where: Partial<Order> = {}): Promise<Order[]> {

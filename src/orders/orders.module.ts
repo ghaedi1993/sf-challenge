@@ -4,10 +4,11 @@ import { OrdersController } from './orders.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Order } from './order.model';
 import { OrdersRepository } from './orders.repository';
-import { LateDeliveriesModule } from 'src/late-deliveries/late-deliveries.module';
+import { UsersModule } from 'src/users/users.module';
+import { VendorsModule } from 'src/vendors/vendors.module';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Order]), LateDeliveriesModule],
+  imports: [SequelizeModule.forFeature([Order]), UsersModule,VendorsModule],
   controllers: [OrdersController],
   providers: [OrdersService, OrdersRepository],
   exports: [OrdersService],
