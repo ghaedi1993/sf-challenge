@@ -5,5 +5,10 @@
   "testRegex": ".e2e-spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
-  }
+  },
+  "moduleDirectories": ["<rootDir>/../", "node_modules"],
+  "testTimeout": 60000,
+  "testSequencer": "./custom-sequencer.js",
+  "globalSetup": "./jest.setup.js",
+  "globalTeardown": "./jest.teardown.js"
 }
