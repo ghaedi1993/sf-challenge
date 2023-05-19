@@ -13,7 +13,7 @@ export class VendorsController {
   }
 
   @Get('delay-report')
-  getDelayReport(){
+  getDelayReport() {
     return this.vendorsService.delayReport();
   }
   @Get()
@@ -30,5 +30,4 @@ export class VendorsController {
   update(@Param('id') id: string, @Body() updateVendorDto: UpdateVendorDto) {
     return this.vendorsService.update({ id: +id }, updateVendorDto);
   }
-
 }

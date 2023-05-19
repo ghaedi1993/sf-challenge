@@ -8,8 +8,11 @@ import { UsersModule } from 'src/users/users.module';
 import { VendorsModule } from 'src/vendors/vendors.module';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Order]), UsersModule, 
-  forwardRef(()=>VendorsModule)],
+  imports: [
+    SequelizeModule.forFeature([Order]),
+    UsersModule,
+    forwardRef(() => VendorsModule),
+  ],
   controllers: [OrdersController],
   providers: [OrdersService, OrdersRepository],
   exports: [OrdersService],

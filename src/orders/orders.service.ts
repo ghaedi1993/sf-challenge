@@ -23,7 +23,7 @@ import { Vendor } from 'src/vendors/vendor.model';
 export class OrdersService {
   constructor(
     private ordersRepository: OrdersRepository,
-    @Inject(forwardRef(()=>VendorsService))
+    @Inject(forwardRef(() => VendorsService))
     private vendorsService: VendorsService,
     private usersService: UsersService,
   ) {}
@@ -56,8 +56,11 @@ export class OrdersService {
     };
     return this.ordersRepository.create(order);
   }
-  async findAll(where: Partial<Order> = {},options:FindOptions={}): Promise<Order[]> {
-    return this.ordersRepository.findAll(where,options);
+  async findAll(
+    where: Partial<Order> = {},
+    options: FindOptions = {},
+  ): Promise<Order[]> {
+    return this.ordersRepository.findAll(where, options);
   }
 
   async findOne(
@@ -113,29 +116,37 @@ export class OrdersService {
       { delivery_time: moment().add(eta, 'minutes').toDate() },
     );
   }
-  async weeklyDelayReport(){
-    // joining vendors with orders and then with trip filtering the orders created for this week 
+  async weeklyDelayReport() {
+    // joining vendors with orders and then with trip filtering the orders created for this week
     // filter those others that deliveredAt in trip is after expected_deliver_time in order
     const startDate = moment().subtract(1, 'weeks').startOf('day').toDate();
     const endDate = moment().endOf('day').toDate();
-    const thisWeekOrders = await this.findAll({
-      createdAt: {
-        [Op.between]: [startDate, endDate],
+    const thisWeekOrders = await this.findAll(
+      {
+        createdAt: {
+          [Op.between]: [startDate, endDate],
+        },
       },
-    },{include:[Trip,Vendor]}); 
+      { include: [Trip, Vendor] },
+    );
 
-    const lateOrders = thisWeekOrders.filter(order=>moment(order?.trip?.deliveredAt).isAfter(order.expected_delivery_time));
-    
+    const lateOrders = thisWeekOrders.filter((order) =>
+      moment(order?.trip?.deliveredAt).isAfter(order.expected_delivery_time),
+    );
+
     const vendorDelays = {};
 
-    lateOrders.forEach(order => {
+    lateOrders.forEach((order) => {
       const vendorName = order.vendor.name;
       const deliveredAt = order.trip.deliveredAt;
       const expectedDeliverTime = order.expected_delivery_time;
-      const status = order.trip.status
+      const status = order.trip.status;
       if (status == TripStatus.DELIVERED) {
-        const delay = moment(deliveredAt).diff(moment(expectedDeliverTime), 'minutes');
-        
+        const delay = moment(deliveredAt).diff(
+          moment(expectedDeliverTime),
+          'minutes',
+        );
+
         if (vendorDelays[vendorName]) {
           vendorDelays[vendorName] += delay;
         } else {
@@ -144,6 +155,6 @@ export class OrdersService {
       }
     });
 
-    return vendorDelays
+    return vendorDelays;
   }
 }

@@ -6,8 +6,10 @@ import { OrdersService } from 'src/orders/orders.service';
 
 @Injectable()
 export class VendorsService {
-  constructor(private vendorsRepository: VendorsRepository,
-    private ordersService: OrdersService) {}
+  constructor(
+    private vendorsRepository: VendorsRepository,
+    private ordersService: OrdersService,
+  ) {}
 
   async create(vendor: Partial<Vendor>) {
     return this.vendorsRepository.create(vendor);
@@ -24,7 +26,7 @@ export class VendorsService {
   ): Promise<[number, Vendor[]]> {
     return this.vendorsRepository.update(where, updateVendorDto);
   }
-  async delayReport(){
+  async delayReport() {
     return this.ordersService.weeklyDelayReport();
   }
 }

@@ -7,9 +7,10 @@ import { VendorsRepository } from './vendors.repository';
 import { OrdersModule } from 'src/orders/orders.module';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Vendor]),
-  forwardRef(()=>OrdersModule)
-],
+  imports: [
+    SequelizeModule.forFeature([Vendor]),
+    forwardRef(() => OrdersModule),
+  ],
   providers: [VendorsService, VendorsRepository],
   controllers: [VendorsController],
   exports: [VendorsService],
