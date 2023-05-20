@@ -18,6 +18,12 @@ docker run --name development-postgres --rm -e POSTGRES_PASSWORD=development -e 
 
 
 ```bash
+# migration 
+$ npm run migration 
+
+# seed 
+$ npm run seed
+
 # development
 $ npm run start
 
@@ -33,5 +39,5 @@ $ npm run start:dev
 $ npm run test
 
 # e2e tests
-$ npm run test:e2e
+$ npm run test:integration
 ```
