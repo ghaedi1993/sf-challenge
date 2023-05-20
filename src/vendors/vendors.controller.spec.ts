@@ -29,18 +29,15 @@ describe('VendorsController', () => {
             findAll: jest.fn(),
             findOne: jest.fn(),
             update: jest.fn(),
-            delayReport: jest.fn()
+            delayReport: jest.fn(),
           },
-        }
+        },
       ],
     }).compile();
 
     vendorsService = module.get<VendorsService>(VendorsService);
     vendorsController = module.get<VendorsController>(VendorsController);
   });
-
-  
-
 
   describe('create', () => {
     it('should be defined', () => {
@@ -51,7 +48,9 @@ describe('VendorsController', () => {
       const createVendorDto: CreateVendorDto = { name: 'vendor 1' };
       const createdVendor = { id: 1, ...createVendorDto };
 
-      const createSpy = jest.spyOn(vendorsService, 'create').mockResolvedValue(createdVendor as Vendor);
+      const createSpy = jest
+        .spyOn(vendorsService, 'create')
+        .mockResolvedValue(createdVendor as Vendor);
       const result = await vendorsController.create(createVendorDto);
 
       expect(createSpy).toHaveBeenCalledWith(createVendorDto);
@@ -91,11 +90,16 @@ describe('VendorsController', () => {
       const updateVendorDto: UpdateVendorDto = { name: 'Updated Vendor' };
       const updatedVendor = { id: 1, name: 'Updated Vendor' };
 
-      jest.spyOn(vendorsService, 'update').mockResolvedValue(updatedVendor as any);
+      jest
+        .spyOn(vendorsService, 'update')
+        .mockResolvedValue(updatedVendor as any);
 
       const result = await vendorsController.update(id, updateVendorDto);
 
-      expect(vendorsService.update).toHaveBeenCalledWith({ id: 1 }, updateVendorDto);
+      expect(vendorsService.update).toHaveBeenCalledWith(
+        { id: 1 },
+        updateVendorDto,
+      );
       expect(result).toEqual(updatedVendor);
     });
   });
