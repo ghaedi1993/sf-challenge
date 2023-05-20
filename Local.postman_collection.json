@@ -1,0 +1,477 @@
+{
+	"info": {
+		"_postman_id": "5a82610f-262f-42ad-a527-d602d6d46427",
+		"name": "Local",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8593785"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create a  Customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "customer_1@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "CUSTOMER",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a  Deliver Driver",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "delivery_driver_1@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "DELIVERY_DRIVER",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create an Agent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "agent_1@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "AGENT",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vendors",
+			"item": [
+				{
+					"name": "Create a Vendor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "vendor_1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/vendors",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"vendors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vendors",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "kalepachei",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/vendors",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"vendors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Delay Report",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/vendors/delay-report",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"vendors",
+								"delay-report"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trips",
+			"item": [
+				{
+					"name": "Create Trip",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "orderId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "deliveryDriverId",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/trips",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Trips",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/trips",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"trips"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delay Reports",
+			"item": [
+				{
+					"name": "Create Delay Report",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "orderId",
+									"value": "8",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/delay-reports",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"delay-reports"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Delay reports",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/delay-reports",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"delay-reports"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Late Deliveries",
+			"item": [
+				{
+					"name": "Create Late Delivery",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "orderId",
+									"value": "8",
+									"type": "text"
+								},
+								{
+									"key": "agentId",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/late-deliveries",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"late-deliveries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Late Deliveries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/late-deliveries",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"late-deliveries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch from Queue",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/late-deliveries/agents/1/fetch-from-queue",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"late-deliveries",
+								"agents",
+								"1",
+								"fetch-from-queue"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fullfuil Late Delivey",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "vendorId",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "customerId",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "delivery_time",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Orders",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3000/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
