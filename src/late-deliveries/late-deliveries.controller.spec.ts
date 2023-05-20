@@ -11,17 +11,19 @@ describe('LateDeliveriesController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [LateDeliveriesController],
-      providers: [{
-        provide:LateDeliveriesService,
-        useValue:{
+      providers: [
+        {
+          provide: LateDeliveriesService,
+          useValue: {
             create: jest.fn(),
             findAll: jest.fn(),
             findOne: jest.fn(),
             update: jest.fn(),
             fetchFromQueue: jest.fn(),
-            fullfil: jest.fn()
-        }
-      }],
+            fullfil: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
     controller = module.get<LateDeliveriesController>(LateDeliveriesController);
@@ -32,7 +34,9 @@ describe('LateDeliveriesController', () => {
     it('should create a new late delivery', async () => {
       const createLateDeliveryDto: CreateLateDeliveryDto = { orderId: 1 };
 
-      jest.spyOn(service, 'create').mockResolvedValue({ id: 1 } as LateDelivery);
+      jest
+        .spyOn(service, 'create')
+        .mockResolvedValue({ id: 1 } as LateDelivery);
 
       const result = await controller.create(createLateDeliveryDto);
 
@@ -50,7 +54,9 @@ describe('LateDeliveriesController', () => {
         agentId: null,
       };
 
-      jest.spyOn(service, 'fetchFromQueue').mockResolvedValue(lateDelivery as LateDelivery);
+      jest
+        .spyOn(service, 'fetchFromQueue')
+        .mockResolvedValue(lateDelivery as LateDelivery);
 
       const result = await controller.fetchFromQueue(agentId);
 
@@ -63,7 +69,9 @@ describe('LateDeliveriesController', () => {
     it('should get all late deliveries', async () => {
       const lateDeliveries = [{ id: 1 }, { id: 2 }];
 
-      jest.spyOn(service, 'findAll').mockResolvedValue(lateDeliveries as LateDelivery[]);
+      jest
+        .spyOn(service, 'findAll')
+        .mockResolvedValue(lateDeliveries as LateDelivery[]);
 
       const result = await controller.findAll();
 
@@ -76,12 +84,20 @@ describe('LateDeliveriesController', () => {
     it('should update the status of a picked late delivery to DONE', async () => {
       const lateDeliveryId = 1;
 
-      jest.spyOn(service, 'fullfil').mockResolvedValue([1, [{ id: 1 , status:LATE_DELIVERY_STATUS.DONE }]] as [number,LateDelivery[]]);
+      jest
+        .spyOn(service, 'fullfil')
+        .mockResolvedValue([
+          1,
+          [{ id: 1, status: LATE_DELIVERY_STATUS.DONE }],
+        ] as [number, LateDelivery[]]);
 
       const result = await controller.fullfil(lateDeliveryId);
 
       expect(service.fullfil).toHaveBeenCalledWith(lateDeliveryId);
-      expect(result).toEqual([1, [{ id: 1 , status:LATE_DELIVERY_STATUS.DONE }]]);
+      expect(result).toEqual([
+        1,
+        [{ id: 1, status: LATE_DELIVERY_STATUS.DONE }],
+      ]);
     });
   });
 });

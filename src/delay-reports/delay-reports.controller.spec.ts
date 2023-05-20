@@ -12,15 +12,17 @@ describe('DelayReportsController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [DelayReportsController],
-      providers: [{
-        provide: DelayReportsService, 
-        useValue:{
-          create: jest.fn(),
-          findAll: jest.fn(),
-          findOne: jest.fn(),
-          update: jest.fn(),
-        }
-      }],
+      providers: [
+        {
+          provide: DelayReportsService,
+          useValue: {
+            create: jest.fn(),
+            findAll: jest.fn(),
+            findOne: jest.fn(),
+            update: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
     controller = module.get<DelayReportsController>(DelayReportsController);
@@ -31,12 +33,14 @@ describe('DelayReportsController', () => {
     it('should create a new delay report', async () => {
       const createDelayReportDto: CreateDelayReportDto = { orderId: 1 };
 
-      jest.spyOn(service, 'create').mockResolvedValue({ id: 1, orderId: 1 } as DelayReport);
+      jest
+        .spyOn(service, 'create')
+        .mockResolvedValue({ id: 1, orderId: 1 } as DelayReport);
 
       const result = await controller.create(createDelayReportDto);
 
       expect(service.create).toHaveBeenCalledWith(createDelayReportDto);
-      expect(result).toEqual({ id: 1 ,orderId: 1});
+      expect(result).toEqual({ id: 1, orderId: 1 });
     });
 
     // Add more test cases if necessary
@@ -46,7 +50,9 @@ describe('DelayReportsController', () => {
     it('should get all delay reports', async () => {
       const delayReports = [{ id: 1 }, { id: 2 }];
 
-      jest.spyOn(service, 'findAll').mockResolvedValue(delayReports as DelayReport[]);
+      jest
+        .spyOn(service, 'findAll')
+        .mockResolvedValue(delayReports as DelayReport[]);
 
       const result = await controller.findAll();
 
@@ -62,7 +68,9 @@ describe('DelayReportsController', () => {
       const id = '1';
       const delayReport = { id: 1 };
 
-      jest.spyOn(service, 'findOne').mockResolvedValue(delayReport as DelayReport);
+      jest
+        .spyOn(service, 'findOne')
+        .mockResolvedValue(delayReport as DelayReport);
 
       const result = await controller.findOne(id);
 
@@ -80,7 +88,10 @@ describe('DelayReportsController', () => {
 
       jest
         .spyOn(service, 'update')
-        .mockResolvedValue([1, [{ id: 1, orderId: 1 }]] as [number, DelayReport[]]);
+        .mockResolvedValue([1, [{ id: 1, orderId: 1 }]] as [
+          number,
+          DelayReport[],
+        ]);
 
       const result = await controller.update(id, updateDelayReportDto);
 
@@ -88,7 +99,7 @@ describe('DelayReportsController', () => {
         { id: +id },
         updateDelayReportDto,
       );
-      expect(result).toEqual([1, [{ id: 1 , orderId:1}]]);
+      expect(result).toEqual([1, [{ id: 1, orderId: 1 }]]);
     });
   });
 });

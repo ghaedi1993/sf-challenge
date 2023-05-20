@@ -12,15 +12,17 @@ describe('TripsController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [TripsController],
-      providers: [{
-        provide:TripsService,
-        useValue:{
-          create: jest.fn(),
-          findAll: jest.fn(),
-          findOne: jest.fn(),
-          update: jest.fn(),
-        }
-      }],
+      providers: [
+        {
+          provide: TripsService,
+          useValue: {
+            create: jest.fn(),
+            findAll: jest.fn(),
+            findOne: jest.fn(),
+            update: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
     controller = module.get<TripsController>(TripsController);
