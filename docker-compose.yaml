@@ -3,20 +3,26 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ${Dockerfile}
+      args:
+      - APPLICATION_PORT=${APPLICATION_PORT}
+      - DOCKER_CONTAINER=true     
     ports:
-      - "3000:3000"
+      - ${APPLICATION_PORT}:${APPLICATION_PORT}
     depends_on:
       - postgres
   postgres:
-    image: postgres:15-alpine
+    image: postgres:15
     restart: always
     environment:
-      POSTGRES_USER: test
-      POSTGRES_PASSWORD: test
-      POSTGRES_DB: test
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    logging:
+      driver: ${POSTGRES_LOGGING}
 
 volumes:
   postgres_data:
+    name: postgres_data_${DB_NAME}

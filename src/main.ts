@@ -31,6 +31,6 @@ async function bootstrap() {
     process.exit(0);
   });
 
-  await app.listen(3000);
+  await app.listen(parseInt(process.env.APPLICATION_PORT) || 3000);
 }
 bootstrap();

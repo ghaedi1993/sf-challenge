@@ -10,6 +10,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DelayReportsModule } from './delay-reports/delay-reports.module';
 import { LateDeliveriesModule } from './late-deliveries/late-deliveries.module';
 import { DatabaseModule } from './database/database.module';
+const isRunningInDocker = process.env.DOCKER_CONTAINER === 'true';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -21,7 +23,7 @@ import { DatabaseModule } from './database/database.module';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         dialect: 'postgres',
-        host: configService.get<string>('DB_HOST'),
+        host: isRunningInDocker ? configService.get<string>('DB_HOST') : 'localhost',
         port: configService.get<number>('DB_PORT'),
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),

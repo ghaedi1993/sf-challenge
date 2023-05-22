@@ -15,13 +15,12 @@ $ nvm  install node
 
 ```bash
 #Install dependencies 
-
 $ npm install
 ```
 
 ## Running the app
 ```bash
-#start database 
+#start a database for develepment
 $ docker run --name development-postgres --rm -e POSTGRES_PASSWORD=development -e POSTGRES_USER=development -e POSTGRES_DB=development -p 5432:5432 postgres
 ```
 
@@ -36,9 +35,6 @@ $ npm run migration
 # seed 
 $ npm run seed
 
-# development
-$ npm run start
-
 # watch mode
 $ npm run start:dev
 
@@ -48,8 +44,19 @@ $ npm run start:dev
 
 ```bash
 # unit tests
-$ npm run test
+$ npm run test:unit
 
-# e2e tests
+# integration tests
+# the setup file in test folder will launch postgres container for test itself just make sure port 5432 is free and .test.env
+# credentials are aligned with those in setup.js for jest which spin up the container  
 $ npm run test:integration
+```
+
+## Docker-COMPOSE 
+```bash 
+# Boostrapping the application for development
+$ npm run docker-compose:development
+
+# Boostrapping the application for tests
+$ npm run docker-compose:test
 ```

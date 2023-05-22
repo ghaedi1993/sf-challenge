@@ -13,8 +13,11 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
+    "test": "npm run test:unit && npm run test:integration:docker",
+    "test:docker": "npm run test:unit && npm run test:integration:docker",
+    "test:unit": "jest",
     "test:integration": "jest --config ./test/jest-integration.json --runInBand",
+    "test:integration:docker": "jest --config ./test/jest-integration.json --ignore=./test/jest.setup.js -ignore=./test/jest.teardown.js --runInBand",
     "prepare": "husky install",
     "migration:generate": "npx sequelize-cli migration:generate --name",
     "migration": "npx sequelize-cli db:migrate",
@@ -23,7 +26,9 @@
     "migrate:undo": "npx sequelize-cli db:migrate:undo",
     "seed:generate": "npx sequelize-cli seed:generate --name",
     "seed": "npx sequelize-cli db:seed:all",
-    "seed:undo": "npx sequelize-cli db:seed:undo"
+    "seed:undo": "npx sequelize-cli db:seed:undo",
+    "docker-compose:test":"bash run-docker-compose.sh test",
+    "docker-compose:development":"bash run-docker-compose.sh development"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
