@@ -3,7 +3,7 @@ let config;
 
 if (process.env.NODE_ENV === 'test') {
   config = {
-    'config': path.resolve('config','test.database.json'), // Path to your Sequelize configuration file
+    'config': path.resolve('config','database.js'), // Path to your Sequelize configuration file
     'models-path': () => {
       const models = glob.sync('src/**/*.model.ts'); // Adjust the file extension if your models have a different extension
       return models.map((file) => path.resolve(file));
@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === 'test') {
   };
 } else {
   config = {
-    'config': path.resolve('config','development.database.json'), // Path to your Sequelize configuration file
+    'config': path.resolve('config','database.js'), // Path to your Sequelize configuration file
     'models-path': () => {
       const models = glob.sync('src/**/*.model.ts'); // Adjust the file extension if your models have a different extension
       return models.map((file) => path.resolve(file));
