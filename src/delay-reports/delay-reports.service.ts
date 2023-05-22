@@ -35,7 +35,7 @@ export class DelayReportsService {
     const isLate = await this.ordersService.isLate(orderId);
     if (isLate) {
       if (['ASSIGNED', 'AT_VENDOR', 'PICKED'].includes(order.trip.status)) {
-        this.ordersService.udpdateEta(orderId).catch((err) => console.log(err));
+        this.ordersService.udpdateEta(orderId).catch();
       } else {
         this.lateDeliveriesService
           .create({ orderId })
