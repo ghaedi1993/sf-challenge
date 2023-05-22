@@ -1,7 +1,12 @@
 ## Installation
 
-1- Install Docker & Docker-compose version 3
+Install Docker 
 
+```bash
+Install Docker-compose version 3
+$ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+$ sudo chmod +x /usr/local/bin/docker-compose
+```
 
 ```bash
 # Install nvm and node
@@ -53,6 +58,8 @@ $ npm run test:integration
 ```
 
 ## Docker-Compose 
+## Feel free to chang postgres & node images to alpine version if its taking long to pull
+
 ```bash 
 # Boostrapping the application for development
 $ npm run docker-compose:development
