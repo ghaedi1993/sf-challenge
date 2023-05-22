@@ -2,7 +2,7 @@
 
 1- Install Docker & Docker-compose
 
-2- Install Nodejs 
+2- Install Nodejs via nvm and choose node 19
 
 3- Install dependencies 
 
