@@ -2,7 +2,7 @@
 
 1- Install Docker & Docker-compose
 
-2- Install Nodejs 
+2- Install Nodejs via nvm and choose node 19
 
 3- Install dependencies 
 
@@ -18,6 +18,12 @@ docker run --name development-postgres --rm -e POSTGRES_PASSWORD=development -e 
 
 
 ```bash
+# migration 
+$ npm run migration 
+
+# seed 
+$ npm run seed
+
 # development
 $ npm run start
 
@@ -33,5 +39,5 @@ $ npm run start:dev
 $ npm run test
 
 # e2e tests
-$ npm run test:e2e
+$ npm run test:integration
 ```
