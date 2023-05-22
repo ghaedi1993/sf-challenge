@@ -52,7 +52,7 @@ $ npm run test:unit
 $ npm run test:integration
 ```
 
-## Docker-COMPOSE 
+## Docker-Compose 
 ```bash 
 # Boostrapping the application for development
 $ npm run docker-compose:development
